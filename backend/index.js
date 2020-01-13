@@ -4,3 +4,5 @@
  */
 
 const Logger = require('./mods/log/logger.js').Logger;
+
+require('./mods/ORM/database');

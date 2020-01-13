@@ -1,4 +1,17 @@
 {
     "version" : "0.0.1",
-    "env": "dev"
+    "env": "dev",
+    "database-dev": {
+        "host": "localhost",
+        "port": 3306,
+        "dabatase": "cryptolabz-dev",
+        "username": "cryptolabz",
+        "password": "cryptolabz"
+    },
+    "database-prod": {
+        "host": "localhost",
+        "dabatase": "cryptolabz-prod",
+        "username": "cryptolabz",
+        "password": "mmm"
+    }
 }
