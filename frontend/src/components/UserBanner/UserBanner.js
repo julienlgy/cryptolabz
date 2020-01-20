@@ -1,15 +1,31 @@
-import React from 'react';
-import UserMenu from './UserMenu/UserMenu'
 import './userbanner.css'
 
+import React from 'react';
+import UserMenu from './UserMenu/UserMenu'
+import { Button, Navbar } from 'reactstrap'
+
 class UserBanner extends React.Component {
+  handleClickSignIn() {
+
+  }
+  
+  handleClickSignUp() {
+    
+  }
+
   render() {
     return (
-      <div className="UserBanner">
-        <button>Sign in</button>
-        <button>Sign up</button>
-        <UserMenu />
-      </div>
+        <Navbar color="light" expand="md" className="UseBanner navbar-default navbar-fixed-top">
+          <Button type="button" color="light" btn-sm
+            onClick={() => this.handleClickSignIn()}>
+            Sign in
+          </Button>
+          <Button type="button" color="light" btn-sm
+            onClick={() => this.handleClickSignUp()}>
+            Sign up
+          </Button>
+          <UserMenu />
+        </Navbar>
     );
   }
 }

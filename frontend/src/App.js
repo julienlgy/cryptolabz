@@ -5,7 +5,7 @@ import Cryptolabz from './components/Cryptolabz/Cryptolabz'
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+      <div className="App container-fluid">
         <UserBanner />
         <Cryptolabz />
       </div>

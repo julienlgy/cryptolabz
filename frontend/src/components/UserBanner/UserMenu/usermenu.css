@@ -1,7 +1,4 @@
-.UserMenu {
-  background-color: #BBFFFF;
-}
-
-.UserMenu .icon {
-  height: 3ex;
+.usermenu .icon {
+  max-height: 3.5ex;
+  
 }
