@@ -1,0 +1,13 @@
+{
+    "email": "mail@mail.com",
+    "username": "sasuke",
+    "firstname": "Sasuke",
+    "lastname": "Uchiha",
+    "currency": "EUR",
+    "cryptos": [
+        1,
+        2,
+        3
+    ],
+    "keywords": "bitcoin, coincoin, pony, twilight sparkle, pony on human action"
+}

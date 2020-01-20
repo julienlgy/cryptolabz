@@ -1,0 +1,9 @@
+{
+    "id": 3,
+    "name": "creativecoin",
+    "current_rate": 234,
+    "opening_rate": 232,
+    "lowest_daily_rate": 200,
+    "highest_daily_rate": 750,
+    "image_url": "https://localhost/api/images/creativecoin.jpg"
+}

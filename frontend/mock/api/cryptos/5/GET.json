@@ -1,0 +1,9 @@
+{
+    "id": 5,
+    "name": "aucoin",
+    "current_rate": 10,
+    "opening_rate": 11,
+    "lowest_daily_rate": 8,
+    "highest_daily_rate": 41,
+    "image_url": "https://localhost/api/images/aucoin.jpg"
+}

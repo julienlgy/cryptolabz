@@ -3,46 +3,46 @@
         {
             "id": 1,
             "name": "coincoin",
-            "current_price": 250,
-            "opening_price": 243,
-            "lowest_daily_price": 245,
-            "highest_daily_price": 255,
+            "current_rate": 250,
+            "opening_rate": 243,
+            "lowest_daily_rate": 245,
+            "highest_daily_rate": 255,
             "image_url": "https://localhost/api/images/coincoin.jpg"
         },
         {
             "id": 2,
             "name": "lolcoin",
-            "current_price": 123,
-            "opening_price": 100,
-            "lowest_daily_price": 200,
-            "highest_daily_price": 50,
+            "current_rate": 123,
+            "opening_rate": 100,
+            "lowest_daily_rate": 200,
+            "highest_daily_rate": 50,
             "image_url": "https://localhost/api/images/lolcoin.jpg"
         },
         {
             "id": 3,
             "name": "creativecoin",
-            "current_price": 234,
-            "opening_price": 232,
-            "lowest_daily_price": 200,
-            "highest_daily_price": 750,
+            "current_rate": 234,
+            "opening_rate": 232,
+            "lowest_daily_rate": 200,
+            "highest_daily_rate": 750,
             "image_url": "https://localhost/api/images/creativecoin.jpg"
         },
         {
             "id": 4,
             "name": "mysterycoin",
-            "current_price": 1,
-            "opening_price": 0.5,
-            "lowest_daily_price": 0.1,
-            "highest_daily_price": 99.9,
+            "current_rate": 1,
+            "opening_rate": 0.5,
+            "lowest_daily_rate": 0.1,
+            "highest_daily_rate": 99.9,
             "image_url": "https://localhost/api/images/mysterycoin.jpg"
         },
         {
             "id": 5,
             "name": "aucoin",
-            "current_price": 10,
-            "opening_price": 11,
-            "lowest_daily_price": 8,
-            "highest_daily_price": 41,
+            "current_rate": 10,
+            "opening_rate": 11,
+            "lowest_daily_rate": 8,
+            "highest_daily_rate": 41,
             "image_url": "https://localhost/api/images/aucoin.jpg"
         }
     ]

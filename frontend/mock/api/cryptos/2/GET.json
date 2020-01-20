@@ -1,0 +1,9 @@
+{
+    "id": 2,
+    "name": "lolcoin",
+    "current_rate": 123,
+    "opening_rate": 100,
+    "lowest_daily_rate": 200,
+    "highest_daily_rate": 50,
+    "image_url": "https://localhost/api/images/lolcoin.jpg"
+}

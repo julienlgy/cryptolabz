@@ -1,0 +1,9 @@
+{
+    "id": 4,
+    "name": "mysterycoin",
+    "current_rate": 1,
+    "opening_rate": 0.5,
+    "lowest_daily_rate": 0.1,
+    "highest_daily_rate": 99.9,
+    "image_url": "https://localhost/api/images/mysterycoin.jpg"
+}
