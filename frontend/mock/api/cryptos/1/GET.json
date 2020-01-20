@@ -1,0 +1,9 @@
+{
+    "id": 1,
+    "name": "coincoin",
+    "current_price": 250,
+    "opening_price": 243,
+    "lowest_daily_price": 245,
+    "highest_daily_price": 255,
+    "image_url": "https://localhost/api/images/coincoin.jpg"
+}
