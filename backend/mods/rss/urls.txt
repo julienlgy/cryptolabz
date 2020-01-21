@@ -1,0 +1,4 @@
+https://www.coindesk.com/feed
+https://cointelegraph.com/feed
+https://www.reddit.com/r/Bitcoin/.rss
+https://bitcoin.org/en/rss/blog.xml

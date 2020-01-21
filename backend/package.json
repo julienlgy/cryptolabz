@@ -4,6 +4,7 @@
   "description": "Cryptolabz nodejs backend",
   "main": "index.js",
   "dependencies": {
+    "rss-parser": "^3.7.3",
     "sequelize": "^5.21.3"
   },
   "devDependencies": {},
