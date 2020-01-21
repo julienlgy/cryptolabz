@@ -2,6 +2,20 @@
   color: white;
 }
 
+.navbar-default {
+  max-height: 6ex;
+}
+
+.navbar-size {
+  height: 6ex;
+}
+
+.userbanner .cryptolabz {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+
 .hidden {
   display: none;
 }
