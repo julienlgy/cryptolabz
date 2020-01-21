@@ -1,0 +1,13 @@
+.searchbar .icon {
+  height: 2.8ex;
+}
+
+.searchbar Button {
+  padding-left: 1ex;
+  padding-top: .2ex;
+  padding-right: 1ex;
+  padding-bottom: .2ex;
+  height: 3ex;
+  background-color:transparent;
+  border-color: transparent;
+}

@@ -3,6 +3,7 @@ import './userbanner.css'
 import React from 'react';
 import CryptosMenu from './CryptosMenu/CryptosMenu'
 import UserMenu from './UserMenu/UserMenu'
+import SearchBar from './SearchBar/SearchBar'
 import { Button,
   Nav,
   Navbar } from 'reactstrap'
@@ -34,9 +35,15 @@ class UserBanner extends React.Component {
     });
   }
 
+  handleUpdateSearch = (search_string) => {}
+
+  handleDoSearch = (search_string) => {
+    console.log("todo: do search " + search_string)
+  }
+
   renderSignIn() {
     return(
-      <Button type="button" color="light" btn-sm
+      <Button type="button" color="light"
         onClick={() => this.handleClickSignIn()}>
         Sign in
       </Button>
@@ -45,7 +52,7 @@ class UserBanner extends React.Component {
 
   renderSignUp() {
     return(
-      <Button type="button" color="light" btn-sm
+      <Button type="button" color="light"
         onClick={() => this.handleClickSignUp()}>
         Sign up
       </Button>
@@ -54,7 +61,7 @@ class UserBanner extends React.Component {
 
   renderSignOut() {
     return(
-      <Button type="button" color="light" btn-sm
+      <Button type="button" color="light"
         onClick={() => this.handleClickSignOut()}>
         Sign out
       </Button>
@@ -64,15 +71,20 @@ class UserBanner extends React.Component {
   render() {
     return (
         <Navbar color="light" expand="md" fixed="top"
-          className="UseBanner navbar-default">
+          className="userbanner navbar-default">
             <div className="mr-auto">
-              <h1>Cryptolabz</h1>
+              <span className="cryptolabz">
+                Cryptolabz
+              </span>
             </div>
 
-            <Nav pullRight>
+            <Nav>
               { !this.state.isAuthentified && this.renderSignIn() }
               { !this.state.isAuthentified && this.renderSignUp() }
 
+              { this.state.isAuthentified && <SearchBar
+                  onUpdateSearch={this.handleUpdateSearch}
+                  onDoSearch={this.handleDoSearch}/> }
               { this.state.isAuthentified && <CryptosMenu /> }
               { this.state.isAuthentified && <UserMenu /> }
               { this.state.isAuthentified && this.renderSignOut() }
