@@ -8,16 +8,31 @@ const Config = require(__dirname+"/../config")
 var express = require('express');
 var router = express.Router();
 
+const UserController = require(__dirname+"/../controller/usercontroller")
+const TokenController = require(__dirname+"/../controller/tokencontroller")
+var userController = new UserController();
+var tokenController = new TokenController();
+
 /**
  * GET / LOGIN 
  * 
  * The user MUST NOT be logged on. Simple authentication by username/password, if successful, a
  * session is started.
  */
-router.get('/login', function(req, res, next) {
-  res.json({
-      "status": false,
-  });
+router.post('/login', function(req, res, next) {
+    if (!tokenController.check(req)) {
+        userController.login(req.body)
+            .then((result) => {
+                if (result.status)
+                    result["token"] = tokenController.sign({"id": result.id})
+                res.json(result)
+            })
+    } else {
+        res.json({
+            "status": false,
+            "message": "already_logged"
+        })
+    }
 });
 
 /**
@@ -26,7 +41,19 @@ router.get('/login', function(req, res, next) {
  * The user MUST NOT be logged on. Register a user by sending a form.
  */
 router.post("/register", function(req, res, next) {
-    res.send('Default response.');
+    if (!tokenController.check(req)) {
+        userController.register(req.body)
+            .then((result) => {
+                if (result.status)
+                    result["token"] = tokenController.sign({id: result.id})
+                res.json(result);
+            })
+    } else {
+        res.json({
+            "status": false,
+            "message": "already_logged"
+        })
+    }
 });
 
 /**
@@ -76,7 +103,13 @@ router.get("/auth/:provider/callback", (req, res, next) => {
  * The user MUST be logged on. The user disconnects, so you must end your session
  */
 router.post("/logout", (req, res, next) => {
-    res.json({});
+    if (tokenController.check(req)) {
+        res.json({
+            status: true
+        })
+    } else {
+        res.json({status: false})
+    }
 })
 
 /**
@@ -85,7 +118,10 @@ router.post("/logout", (req, res, next) => {
  * The user MUST be logged on. Retrieving profile information.
  */
 router.get("/profile", (req, res, next) => {
-    res.json({})
+    if (tokenController.check(req)) {
+        return res.json(tokenController.check(req))
+    } else
+        next()
 })
 
 /**
@@ -98,7 +134,13 @@ router.get("/profile", (req, res, next) => {
  *   -> a list of keywords, for their press review
  */
 router.put("/profile", (req, res, next) => {
-    res.json({})
+    if (tokenController.check(req)) {
+        userController.update(tokenController.check(req)['id'], req.body)
+            .then((result) => {
+                res.json(result)
+            })
+    } else
+        next()
 })
 
 module.exports = router;
