@@ -43,7 +43,7 @@ class UserBanner extends React.Component {
 
   renderSignIn() {
     return(
-      <Button type="button" color="light"
+      <Button type="button" color="dark"
         onClick={() => this.handleClickSignIn()}>
         Sign in
       </Button>
@@ -52,7 +52,7 @@ class UserBanner extends React.Component {
 
   renderSignUp() {
     return(
-      <Button type="button" color="light"
+      <Button type="button" color="dark"
         onClick={() => this.handleClickSignUp()}>
         Sign up
       </Button>
@@ -61,7 +61,7 @@ class UserBanner extends React.Component {
 
   renderSignOut() {
     return(
-      <Button type="button" color="light"
+      <Button type="button" color="dark"
         onClick={() => this.handleClickSignOut()}>
         Sign out
       </Button>
@@ -70,7 +70,7 @@ class UserBanner extends React.Component {
 
   render() {
     return (
-        <Navbar color="light" expand="md" fixed="top"
+        <Navbar color="dark" expand="md" fixed="top"
           className="userbanner navbar-default">
             <div className="mr-auto">
               <span className="cryptolabz">
