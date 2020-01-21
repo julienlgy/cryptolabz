@@ -1,7 +1,7 @@
 import './usermenu.css'
 
 import React from 'react';
-import icon from './icon.svg'
+import icon from './user_icon.svg'
 import { UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -14,19 +14,19 @@ class UserMenu extends React.Component {
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle nav caret>
           <img src={icon} alt="user_menu_icon"
-            longdesc="https://www.flaticon.com/"
+            longdesc="made by https://www.flaticon.com/authors/freepik"
             className="icon"/>
           </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem>
-              Option 1
+              My account
             </DropdownItem>
             <DropdownItem>
-              Option 2
+              Settings
             </DropdownItem>
             <DropdownItem divider />
             <DropdownItem>
-              Reset
+              Log out
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>

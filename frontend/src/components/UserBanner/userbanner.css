@@ -1,3 +1,7 @@
 .UserBanner {
   background-color: rgb(100, 172, 190);
 }
+
+.hidden {
+  display: none;
+}
