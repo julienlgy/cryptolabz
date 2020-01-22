@@ -4,16 +4,21 @@
   "description": "Cryptolabz nodejs backend",
   "main": "index.js",
   "dependencies": {
+    "@rama41222/node-logger": "^1.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.3",
-    "shelljs": "^0.8.3",
-    "express": "~4.16.1",
-    "cookie-parser": "~1.4.4",
-    "http-errors": "~1.6.3"
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Julien Legay x Raphael Palermeb x Lucas De Angelis",
   "license": "ISC"
