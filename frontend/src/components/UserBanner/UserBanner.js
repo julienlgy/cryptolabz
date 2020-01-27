@@ -70,7 +70,7 @@ class UserBanner extends React.Component {
 
   render() {
     return (
-      <div class="userbanner">
+      <div className="userbanner">
         <Navbar color="dark" expand="md" fixed="top"
           className="userbanner navbar-default navbar-size">
             <div className="mr-auto">
@@ -92,7 +92,7 @@ class UserBanner extends React.Component {
 
             </Nav>
         </Navbar>
-        <div class="navbar-size"></div>
+        <div className="navbar-size"></div>
       </div>
     );
   }
