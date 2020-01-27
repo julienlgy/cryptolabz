@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readFile(__dirname + '/urls.txt', "utf-8", (err, data) => {
+fs.readFile(__dirname + '/urls.txt', 'utf-8', (err, data) => {
     if (err) {
         throw err;
     }
