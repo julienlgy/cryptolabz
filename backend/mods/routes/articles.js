@@ -4,13 +4,13 @@
  * last modified : 20/01/2020
  */
 
-const Config = require(__dirname+"/../config")
-var express = require('express')
-var router = express.Router()
+const Config = require(__dirname + "/../config");
+var express = require("express");
+var router = express.Router();
 
 /**
  * GET / ARTICLES
- * 
+ *
  * params: free. User MUST be logged in (OR NOT). If the user is anonymous the settings (if any) are
  * ignored and the last published articles are returned. If the user is logged in the settings are used to
  * return only the items most relevant to the user (a list of keywords might help you). You are free to define
@@ -21,13 +21,11 @@ var router = express.Router()
  * -> an URL of the article’s page
  * -> an URL of its image (if it exists)
  */
-router.get("/", (req, res, next) => {
-
-})
+router.get("/", (req, res, next) => {});
 
 /**
  * GET / ARTICLE ID
- * 
+ *
  * id: the Id of an article. The user MUST be logged in (OR NOT). Returns information about an article,
  * which is at least:
  * -> the article Id
@@ -38,8 +36,6 @@ router.get("/", (req, res, next) => {
  * -> the URL of the article’s page
  * -> the URL of its image (if it exists)
  */
-router.get("/:id", (req, res, next) => {
-
-})
+router.get("/:id", (req, res, next) => {});
 
 module.exports = router;

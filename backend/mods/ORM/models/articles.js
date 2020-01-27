@@ -1,43 +1,47 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Article = sequelize.define('Article', {
-    title: {
+  const Article = sequelize.define(
+    "Article",
+    {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notEmpty: true
+          notEmpty: true
         }
-    },
-    summary: {
+      },
+      summary: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notEmpty: true
+          notEmpty: true
         }
-    },
-    source: {
+      },
+      source: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notEmpty: true
+          notEmpty: true
         }
-    },
-    date: {
+      },
+      date: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
-            notEmpty: true
+          notEmpty: true
         }
-    },
-    url: {
+      },
+      url: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notEmpty: true
+          notEmpty: true
         }
+      },
+      imageUrl: DataTypes.STRING
     },
-    imageUrl: DataTypes.STRING
-  }, {});
+    {}
+  );
   Article.associate = function(models) {
     // associations can be defined here
   };
