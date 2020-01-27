@@ -1,19 +1,20 @@
-"use strict";
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Rss", {
+    return queryInterface.createTable('cryptoshistos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      url: {
+      symbol: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: false
+      },
+      price: {
+        type: Sequelize.FLOAT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Rss");
+    return queryInterface.dropTable('cryptoshistos');
   }
 };

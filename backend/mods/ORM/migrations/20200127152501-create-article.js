@@ -9,41 +9,41 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
       summary: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
       source: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
       date: {
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
       url: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
-      imageUrl: DataTypes.STRING,
+      imageUrl: Sequelize.STRING,
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
