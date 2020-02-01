@@ -1,0 +1,53 @@
+.settings {
+  padding: 2em;
+  background-color: #292929;
+  width: 100%;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 150%;
+  text-align: center;
+  padding: 1.5ex 1.5ex;
+}
+
+.form-control {
+  width: 90%;
+  max-width: 60ex;
+}
+
+.list-inline .list-inline-item {
+  border-color: #979797;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 2ex;
+  padding:  0.75ex 1.5ex;
+  margin: 0.5ex 1ex;
+}
+
+.list-inline .list-inline-item.selected {
+  background-color: rgb(24, 78, 5);
+}
+
+.list-inline .list-inline-item.unselected {
+  background-color: rgb(66, 45, 45);
+}
+
+.delete-btn {
+  font-weight: bold;
+  background-color:black;
+  color: white;
+  border-radius: 50%;
+  border: 1.2px solid #979797;
+  margin-left: 1ex;
+  margin-bottom: 0.5ex;
+  cursor:pointer;
+}
+
+.list-inline-item.add-btn {
+  font-weight: bold;
+  background-color:black;
+  color: white;
+  border-radius: 50%;
+  cursor:pointer;
+}
