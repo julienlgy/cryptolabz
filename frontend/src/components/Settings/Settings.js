@@ -1,5 +1,6 @@
 import "./settings.css";
 import 'bootstrap/dist/css/bootstrap.css';
+import AddTag from './AddTag/AddTag';
 
 import React, { Component } from "react";
 import { Col,
@@ -50,6 +51,20 @@ class Settings extends Component {
     this.setState({addingTag: true})
   }
 
+  handleCancelAddTag = () => {
+    this.setState({addingTag: false})
+  }
+
+  handleTagAdded = (tag) => {
+    if (this.state.tags.indexOf(tag) != -1) {
+      return
+    }
+    this.setState({addingTag: false})
+    let new_tags = this.state.tags.slice()
+    new_tags.push(tag)
+    this.setState({tags: new_tags})
+  }
+
   handleUpdateFavorites() {
     console.log("TODO update favorites")
   }
@@ -73,6 +88,10 @@ class Settings extends Component {
 
   renderTags() {
     return (<ul className="list-inline">
+    {this.state.addingTag && <AddTag
+        onAddTag={this.handleTagAdded}
+        onCancelAddTag={this.handleCancelAddTag}/>
+    }
     {this.state.tags.map((tag,index) =>
       <li
           className="list-inline-item"

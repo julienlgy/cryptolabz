@@ -77,7 +77,7 @@ class UserBanner extends React.Component {
 
   render() {
     return (
-      <div class="userbanner">
+      <div className="userbanner">
         <Navbar
           color="dark"
           expand="md"
