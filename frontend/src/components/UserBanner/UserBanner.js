@@ -9,35 +9,35 @@ import { Button, Nav, Navbar } from "reactstrap";
 class UserBanner extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isAuthentified: false };
+    this.state = {
+      display_body: 'Cryptolabz',
+      isAuthentified: false
+    };
   }
 
   handleClickSignIn() {
     this.setState({
-      ...this.state,
       isAuthentified: true
     });
   }
 
   handleClickSignUp() {
     this.setState({
-      ...this.state,
       isAuthentified: true
     });
   }
 
   handleClickSignOut() {
     this.setState({
-      ...this.state,
       isAuthentified: false
     });
   }
 
   handleUpdateSearch = search_string => {};
 
-  handleDoSearch = search_string => {
+  handleDoSearch = (search_string) => {
     console.log("todo: do search " + search_string);
-  };
+  }
 
   renderSignIn() {
     return (
@@ -98,7 +98,9 @@ class UserBanner extends React.Component {
               />
             )}
             {this.state.isAuthentified && <CryptosMenu />}
-            {this.state.isAuthentified && <UserMenu />}
+            {this.state.isAuthentified && <UserMenu
+                onEventUserMyAccount={this.props.onEventUserMyAccount}
+                onEventUserSettings={this.props.onEventUserSettings}/>}
             {this.state.isAuthentified && this.renderSignOut()}
           </Nav>
         </Navbar>

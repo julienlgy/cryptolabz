@@ -18,10 +18,12 @@ class UserMenu extends React.Component {
             className="icon"/>
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>
+            <DropdownItem
+                onClick={this.props.onEventUserMyAccount}>
               My account
             </DropdownItem>
-            <DropdownItem>
+            <DropdownItem
+                onClick={this.props.onEventUserSettings}>
               Settings
             </DropdownItem>
             <DropdownItem divider />
