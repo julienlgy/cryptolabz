@@ -1,4 +1,10 @@
 .cryptolabz {
-  width: 100%;
   color: white;
+}
+
+.main-title {
+  line-height: 1.15;
+  text-size-adjust: 100%;
+  padding-top: 3em;
+  padding-bottom: 3em;
 }

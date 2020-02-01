@@ -8,8 +8,21 @@ class News extends Component {
   }
   render() {
     return (
-      <div className="News" class="col-6 box">
-        <div class="col-md-12">NEWS OUAIS</div>
+      <div className="News" class="col-12">
+        <div class="dark-bg">
+          <h2>News</h2>
+          <article>
+            <p>
+              Sed commodo interdum auctor. Quisque sed elit lectus. Vivamus
+              feugiat nisi diam, a mollis dolor egestas vitae. Morbi mollis sit
+              amet libero non luctus. Phasellus at ipsum nulla. Donec commodo
+              velit eget dignissim aliquam. Vestibulum id eleifend arcu. Donec
+              tristique enim venenatis, ornare elit id, elementum dui. Duis eu
+              elit pharetra, pharetra nunc posuere, pretium nisi. Vivamus ut
+              volutpat libero.
+            </p>
+          </article>
+        </div>
       </div>
     );
   }
