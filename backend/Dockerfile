@@ -6,8 +6,10 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+COPY package.json ./
 RUN npm install
+RUN npm install -g sequelize-cli
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

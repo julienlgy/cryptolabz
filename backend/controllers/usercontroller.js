@@ -3,10 +3,45 @@
  * EPITECH PROJECT
  * last modified : 20/01/2020
  */
+const db = require('../models/index')
+const bcrypt = require('bcryptjs')
 
-class UserController {
+module.exports = {
+  async create(req, res) {
+    
+    const password = bcrypt.hashSync(req.body.password, 10)
+        
+        const {
+            email,
+            username,
+            firstname,
+            lastname
+          } = req.body
+        
+          await db.User.create({
+            email,
+            password,
+            username,
+            firstname,
+            lastname,
+            isAdmin: false
+          })
+          .then(user => res.status(201).json({
+            error: false,
+            data: user,
+            message: 'New user created.'
+          }))
+          .catch(error => res.json({
+            error: true,
+            data: [],
+            error
+          }));
+        }
+}
+
+/*class UserController {
     constructor() {
-        this.db = require(__dirname+"/../ORM/database.js")
+        this.db = require('../models/index')
     }
     register(params) {
         return new Promise((resolve, reject) => {
@@ -76,6 +111,4 @@ class UserController {
             })
         })
     }
-}
-
-module.exports = UserController;
+}*/
