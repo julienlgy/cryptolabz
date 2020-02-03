@@ -1,0 +1,14 @@
+.favorites {
+  color: white;
+  background-color: #292929;
+}
+
+.favorites .chart {
+  max-height: 15ex;
+}
+
+.favorites .chart *,
+.favorites text {
+  color: white;
+  background-color: black;
+}
