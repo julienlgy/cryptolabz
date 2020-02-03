@@ -3,8 +3,6 @@
  * Routes cryptos
  * last modified : 20/01/2020
  */
-
-const Config = require(__dirname+"/../config")
 var express = require('express')
 var router = express.Router()
 

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "cryptolabz",
+    "database": "cryptolabz_dev",
+    "host": "db",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "cryptolabz",
+    "database": "cryptolabz_test",
+    "host": "db",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "cryptolabz",
+    "database": "cryptolabz_prod",
+    "host": "db",
+    "dialect": "mysql"
+  }
+}
