@@ -56,7 +56,7 @@ class Settings extends Component {
   }
 
   handleTagAdded = (tag) => {
-    if (this.state.tags.indexOf(tag) != -1) {
+    if (this.state.tags.indexOf(tag) !== -1) {
       return
     }
     this.setState({addingTag: false})

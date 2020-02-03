@@ -1,3 +1,15 @@
+.userbanner * {
+  background-color: transparent;
+}
+
+.userbanner .mr-auto {
+  background-color: white;
+}
+
+.userbanner .mr-auto .cryptolabz {
+  background-color: #343a40;
+}
+
 .userbanner, .userbanner .cryptolabz {
   color: white;
 }
