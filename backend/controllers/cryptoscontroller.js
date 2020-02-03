@@ -6,7 +6,7 @@
 
 class CryptosController {
     constructor() {
-        this.db = require('../models/index')
+        this.db = require('../models/index');
     }
 
     update(JsonCurrency) {

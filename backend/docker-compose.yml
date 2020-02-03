@@ -14,12 +14,6 @@ services:
     depends_on:
       - db
 
-  web-cli:
-    image: cryptolabzapi
-    networks:
-      - backend
-    command: sh
-
   db:
     image: mysql:5.7
     container_name: cryptolabzdb
