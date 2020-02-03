@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Top10Crypto.css";
-import PropTypes from "prop-types";
+import { Table } from "reactstrap";
 
 class Top10Crypto extends Component {
   constructor(props) {
@@ -8,11 +8,10 @@ class Top10Crypto extends Component {
   }
   render() {
     return (
-      <div className="Top10Crypto" class="col-8">
-        <div class="dark-bg rounded-lg">
-          <h2>#4 Crypto</h2>
-          <div class="table-responsive">
-            <table class="table table-dark">
+      <div class="col-12 col-md-8">
+        <div class="rounded-lg">
+          <div class="table-responsive shadow-lg p-3 mb-5 bg-white rounded">
+            <Table borderless hover>
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -52,7 +51,7 @@ class Top10Crypto extends Component {
                   <td>graph</td>
                 </tr>
               </tbody>
-            </table>
+            </Table>
           </div>
         </div>
       </div>

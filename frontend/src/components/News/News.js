@@ -9,7 +9,7 @@ class News extends Component {
   render() {
     return (
       <div className="News" class="col-12">
-        <div class="dark-bg">
+        <div class="news">
           <h2>News</h2>
           <article>
             <p>
