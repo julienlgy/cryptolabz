@@ -83,7 +83,8 @@ class UserBanner extends React.Component {
           expand="md"
           fixed="top"
           className="userbanner navbar-default navbar-size">
-          <div className="mr-auto">
+          <div className="mr-auto"
+              onClick={this.props.onEventHome}>
             <span className="cryptolabz">Cryptolabz</span>
           </div>
 
@@ -93,8 +94,8 @@ class UserBanner extends React.Component {
 
             {this.state.isAuthentified && (
               <SearchBar
-                onUpdateSearch={this.handleUpdateSearch}
-                onDoSearch={this.handleDoSearch}
+                  onUpdateSearch={this.handleUpdateSearch}
+                  onDoSearch={this.handleDoSearch}
               />
             )}
             {this.state.isAuthentified && <CryptosMenu />}

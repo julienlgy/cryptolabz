@@ -12,6 +12,12 @@ class App extends React.Component {
     };
   }
 
+  handleEventHome = () => {
+    this.setState({
+      display_body: 'Cryptolabz'
+    })
+  }
+
   handleEventUserMyAccount = () => {
     this.setState({
       display_body: 'MyAccount'
@@ -28,6 +34,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <UserBanner
+            onEventHome={this.handleEventHome}
             onEventUserMyAccount={this.handleEventUserMyAccount}
             onEventUserSettings={this.handleEventUserSettings}/>
           {this.state.display_body === 'Cryptolabz' && <Cryptolabz />}
