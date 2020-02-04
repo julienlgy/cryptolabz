@@ -8,38 +8,39 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display_body: 'Cryptolabz'
+      display_body: "Cryptolabz"
     };
   }
 
   handleEventHome = () => {
     this.setState({
-      display_body: 'Cryptolabz'
-    })
-  }
+      display_body: "Cryptolabz"
+    });
+  };
 
   handleEventUserMyAccount = () => {
     this.setState({
-      display_body: 'MyAccount'
-    })
-  }
+      display_body: "MyAccount"
+    });
+  };
 
   handleEventUserSettings = () => {
     this.setState({
-      display_body: 'Settings'
-    })
-  }
+      display_body: "Settings"
+    });
+  };
 
   render() {
     return (
       <div className="App">
         <UserBanner
-            onEventHome={this.handleEventHome}
-            onEventUserMyAccount={this.handleEventUserMyAccount}
-            onEventUserSettings={this.handleEventUserSettings}/>
-          {this.state.display_body === 'Cryptolabz' && <Cryptolabz />}
-          {this.state.display_body === 'MyAccount' && <MyAccount />}
-          {this.state.display_body === 'Settings' && <Settings />}
+          onEventHome={this.handleEventHome}
+          onEventUserMyAccount={this.handleEventUserMyAccount}
+          onEventUserSettings={this.handleEventUserSettings}
+        />
+        {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
+        {this.state.display_body === "MyAccount" && <MyAccount />}
+        {this.state.display_body === "Settings" && <Settings />}
       </div>
     );
   }
