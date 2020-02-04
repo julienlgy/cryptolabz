@@ -4,7 +4,7 @@ class ArticleSourceController {
     constructor() {
         this.db = require('../models/index');
     }
-    
+
     // Get all the articles
     static getSources() {
         return new Promise((resolve, reject) => {

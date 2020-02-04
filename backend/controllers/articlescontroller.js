@@ -1,6 +1,6 @@
 'use strict';
 
-const { ArticleSourceController } = require("./articlesourcecontroller").default;
+const { ArticleSourceController } = require("articlesourcecontroller");
 const Parser = require('rss-parser');
 
 class ArticleController {
