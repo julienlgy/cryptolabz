@@ -1,6 +1,6 @@
 import React from "react";
 import "./cryptolabz.css";
-import Top10Crypto from "../Top10Crypto/Top10Crypto";
+import Top10Crypto from "../Top4Crypto/Top4Crypto";
 import News from "../News/News";
 
 class Cryptolabz extends React.Component {
