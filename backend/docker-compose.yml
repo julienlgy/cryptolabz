@@ -1,0 +1,46 @@
+version: '3'
+services:
+  api:
+    image: cryptolabz
+    container_name: cryptolabzapi
+    working_dir: /usr/src/app
+    build: .
+    networks:
+      - backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - db
+
+  web-cli:
+    image: cryptolabzapi
+    networks:
+      - backend
+    command: sh
+
+  db:
+    image: mysql:5.7
+    container_name: cryptolabzdb
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - backend
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - db:/var/lib/mysql
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db:

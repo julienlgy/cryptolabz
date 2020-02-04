@@ -1,6 +1,3 @@
-# cryptolabz
-T-WEB-700 Epitech Project
-
 # Cryptolabz BACKEND
 
 ### Launch backend
@@ -13,3 +10,6 @@ T-WEB-700 Epitech Project
 - `ORM/` Sequelize ORM
 - `routes/` express routes
 - `scheduler/` Cryptocurrencies information getter
+
+
+
