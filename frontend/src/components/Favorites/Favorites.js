@@ -18,10 +18,11 @@ import { ArgumentScale ,
   HoverState } from '@devexpress/dx-react-chart';
   import { scaleTime } from 'd3-scale';
 
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 const generateData = (n) => {
   const ret = [];
-  let value = 0;
+  let value = 20;
   const datestamp = new Date(2020, 0, 0);
   for (let i = 0; i < n; i += 1) {
     datestamp.setDate(datestamp.getDate() + 1);
@@ -41,27 +42,65 @@ class Favorite extends Component {
           name: 'bitcoin',
           isNotCollapsed: true,
           values: generateData(100),
-          trendOverall: 2.6,
-          trend48h: -1.4,
+          trendOverall: 0,
+          trend48h: 0,
         },
         {
           name: 'megacoin',
           isNotCollapsed: true,
           values: generateData(100),
-          trendOverall: -2.6,
-          trend48h: 1.4,
+          trendOverall: 0,
+          trend48h: 0,
         },
         {
           name: 'aucoin',
           isNotCollapsed: true,
           values: generateData(100),
-          trendOverall: -2.6,
-          trend48h: -1.4,
+          trendOverall: 0,
+          trend48h: 0,
         },
       ],
       hoveredDate: null,
       hoveredValue: null,
     }
+  }
+
+  componentDidMount() {
+    this.calculateTrends()
+  }
+
+  calculateTrends() {
+    let new_favorites = this.state.favorites.slice()
+    new_favorites.forEach((item) => {
+      let values = item.values
+      // Overall trend
+      item.trendOverall = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[0].value - 10000)) / 100.
+      item.trendOverall = values[values.length-1].value < values[0].value ?
+            item.trendOverall * -1 : item.trendOverall
+      // Last 48h
+      let index = values.length-1
+      let last_date = values[index].datestamp
+      while (this.dateDiffInDays(values[index].datestamp, last_date) < 2 && index >= 0) {
+        index--;
+      }
+      if (index >=0) {
+        item.trend48h = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[index].value - 10000)) / 100.
+        item.trend48h = values[values.length-1].value < values[index].value ?
+            item.trend48h * -1 : item.trend48h
+          }
+    });
+    // Save result
+    this.setState({
+      favorites: new_favorites
+    })
+  }
+
+  dateDiffInDays(a, b) {
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  
+    return (utc2 - utc1) / _MS_PER_DAY
   }
 
   handleToggleFavorite = (index) => {
@@ -106,7 +145,7 @@ class Favorite extends Component {
       sign = ""
     }
     return(<span className={classN}>
-      {label + " : " + sign + value}
+      {label + " : " + sign + value + "%"}
     </span>)
   }
 
