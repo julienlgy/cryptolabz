@@ -7,7 +7,7 @@ class Cryptolabz extends React.Component {
   render() {
     return (
       <div className="Cryptolabz">
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid shadow-sm p-3 mb-5">
           <div class="container">
             <h1 class="display-4">Become a crypto scientist !</h1>
           </div>

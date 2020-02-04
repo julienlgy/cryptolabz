@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Variation from "./Variation";
 import "./Top10Crypto.css";
 import { Table } from "reactstrap";
 
@@ -26,28 +27,28 @@ class Top10Crypto extends Component {
                   <th scope="row">1</th>
                   <td>Bitcoin</td>
                   <td>€7340.20</td>
-                  <td>+0.07%</td>
+                  <Variation value="+0.07%" />
                   <td>graph</td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
                   <td>Etherum</td>
                   <td>€156.35</td>
-                  <td>+0.12%</td>
+                  <Variation value="+0.12%" />
                   <td>graph</td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
                   <td>Bitcoin Cash</td>
                   <td>€308.70</td>
-                  <td>+0.86%</td>
+                  <Variation value="+0.86%" />
                   <td>graph</td>
                 </tr>
                 <tr>
                   <th scope="row">4</th>
                   <td>Litecoin</td>
                   <td>€51.77</td>
-                  <td>-0.19%</td>
+                  <Variation value="-0.19%" />
                   <td>graph</td>
                 </tr>
               </tbody>
@@ -57,6 +58,8 @@ class Top10Crypto extends Component {
       </div>
     );
   }
+
+  renderChangesColor() {}
 }
 Top10Crypto.propTypes = {};
 
