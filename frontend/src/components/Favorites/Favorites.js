@@ -5,18 +5,19 @@ import React, { Component } from "react";
 import { Col,
   Collapse,
   Row } from 'reactstrap'
+import ReactTooltip from 'react-tooltip'
 import {
-  Chart,
   ArgumentAxis,
   ValueAxis,
+  Chart,
   LineSeries,
-  ZoomAndPan,
+  ZoomAndPan
 } from '@devexpress/dx-react-chart-material-ui';
-import { scaleTime } from 'd3-scale';
-import { ArgumentScale,
+import { ArgumentScale ,
   EventTracker,
   HoverState } from '@devexpress/dx-react-chart';
-import ReactTooltip from 'react-tooltip'
+  import { scaleTime } from 'd3-scale';
+
 
 const generateData = (n) => {
   const ret = [];
@@ -29,9 +30,6 @@ const generateData = (n) => {
   }
   return ret;
 };
-const ChartRoot = props => (
-  <Chart.Root {...props}/>
-);
 
 class Favorite extends Component {
   constructor(props) {
@@ -55,6 +53,7 @@ class Favorite extends Component {
           values: generateData(100),
         },
       ],
+      hoveredDate: null,
       hoveredValue: null,
     }
   }
@@ -70,14 +69,25 @@ class Favorite extends Component {
 
   handleHoverChange = (target) => {
     if (target == null) {
-      this.setState({ hoveredValue: null })
+      this.setState({
+        hoveredDate: null,
+        hoveredValue: null
+      })
       return
     }
-    this.setState({ hoveredValue: Math.round(target.distance * 100) / 100.})
+    console.log(this.state.favorites[target.series].values[target.point].datestamp)
+    this.setState({
+      hoveredDate: this.state.favorites[target.series].values[target.point].datestamp,
+      hoveredValue: Math.round(target.distance * 100) / 100.
+    })
   }
 
   renderHoveredValueInfotip() {
     return(<ReactTooltip place="left" type="dark" effect="float">
+      {this.state.hoveredDate.getFullYear()
+           + "/" + (this.state.hoveredDate.getMonth() + 1)
+           + "/" + this.state.hoveredDate.getDate()}
+      <br/>
       {this.state.hoveredValue}
     </ReactTooltip>)
   }
@@ -106,26 +116,29 @@ class Favorite extends Component {
                   <Col
                       xs={{ size: 11}}
                       xm={{ size: 10}}>
-                      <Chart
-                          className="chart"
-                          data={currency.values} rootComponent={ChartRoot}>
-                        <ArgumentScale
-                            factory={scaleTime} />
-                        <ArgumentAxis />
-                        <ValueAxis />
-              
-                        <LineSeries
-                            argumentField="datestamp"
-                            valueField="value"
-                            color="#CD6767" />
+                    <Chart 
+                        className="chart"
+                        data={currency.values}>
+                      <ArgumentAxis />
+                      <ArgumentScale factory={scaleTime} />
+                      <ValueAxis
+                          position="left" />
+                      <ValueAxis
+                          position="right" />
 
-                        <ZoomAndPan
+                      <LineSeries
+                        name={index}
+                        valueField="value"
+                        argumentField="datestamp"
+                      />
+
+                      <EventTracker />
+                      <ZoomAndPan
                           interactionWithArguments="both"
-                          zoomRegionKey="ctrl" />
-                        <EventTracker />
-                        <HoverState 
-                            onHoverChange={(e) => this.handleHoverChange(e)}/>
-                      </Chart>
+                      />
+                      <HoverState 
+                          onHoverChange={this.handleHoverChange}/>
+                    </Chart>
                   </Col>
                 </Row>
               </Collapse>

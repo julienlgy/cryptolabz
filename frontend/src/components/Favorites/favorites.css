@@ -4,11 +4,27 @@
 }
 
 .favorites .chart {
-  max-height: 15ex;
+  max-height: 20ex; 
 }
 
-.favorites .chart *,
 .favorites text {
-  color: white;
+  fill: white;
+}
+
+.favorites .chart #center-axis-container path {
+  stroke: #42A5F5;
+}
+
+.favorites .chart #center-axis-container path.Component-root-4 {
+  stroke: #666;
+}
+
+.favorites .chart {
+  padding: 10px 5px 10px 5px;
+  border-radius: 10px;
+  background-color: black;
+}
+
+.favorites .chart * {
   background-color: black;
 }
