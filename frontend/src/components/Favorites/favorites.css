@@ -28,3 +28,11 @@
 .favorites .chart * {
   background-color: black;
 }
+
+.favorites .trend-positive {
+  color: #129912;
+}
+
+.favorites .trend-negative {
+  color: #882222;
+}

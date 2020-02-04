@@ -41,16 +41,22 @@ class Favorite extends Component {
           name: 'bitcoin',
           isNotCollapsed: true,
           values: generateData(100),
+          trendOverall: 2.6,
+          trend48h: -1.4,
         },
         {
           name: 'megacoin',
           isNotCollapsed: true,
           values: generateData(100),
+          trendOverall: -2.6,
+          trend48h: 1.4,
         },
         {
           name: 'aucoin',
           isNotCollapsed: true,
           values: generateData(100),
+          trendOverall: -2.6,
+          trend48h: -1.4,
         },
       ],
       hoveredDate: null,
@@ -75,7 +81,6 @@ class Favorite extends Component {
       })
       return
     }
-    console.log(target)
     this.setState({
       hoveredDate: this.state.favorites[target.series].values[target.point].datestamp,
       hoveredValue: Math.round(
@@ -91,6 +96,18 @@ class Favorite extends Component {
       <br/>
       {this.state.hoveredValue + "€"}
     </ReactTooltip>)
+  }
+
+  renderTrend(value, label) {
+    let classN = "trend-positive"
+    let sign = "+"
+    if (value < 0) {
+      classN = "trend-negative"
+      sign = ""
+    }
+    return(<span className={classN}>
+      {label + " : " + sign + value}
+    </span>)
   }
 
   renderFavorites() {
@@ -110,13 +127,21 @@ class Favorite extends Component {
                     isOpen={currency.isNotCollapsed}>
                 <Row>
                   <Col
-                      xs={{ size: 1}}
-                      xm={{ size: 2}}>
-                    {currency.name}
+                      xs={{ size: 2}}
+                      xm={{ size: 4}}>
+                    <Row>
+                      {currency.name}
+                    </Row>
+                    <Row>
+                      {this.renderTrend(currency.trendOverall, 'Overall trend')}
+                    </Row>
+                    <Row>
+                      {this.renderTrend(currency.trend48h, 'Last 48h')}
+                    </Row>
                   </Col>
                   <Col
-                      xs={{ size: 11}}
-                      xm={{ size: 10}}>
+                      xs={{ size: 10}}
+                      xm={{ size: 8}}>
                     <Chart 
                         className="chart"
                         data={currency.values}>
