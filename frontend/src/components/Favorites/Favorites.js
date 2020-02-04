@@ -75,10 +75,11 @@ class Favorite extends Component {
       })
       return
     }
-    console.log(this.state.favorites[target.series].values[target.point].datestamp)
+    console.log(target)
     this.setState({
       hoveredDate: this.state.favorites[target.series].values[target.point].datestamp,
-      hoveredValue: Math.round(target.distance * 100) / 100.
+      hoveredValue: Math.round(
+          this.state.favorites[target.series].values[target.point].value * 100) / 100.
     })
   }
 
@@ -88,7 +89,7 @@ class Favorite extends Component {
            + "/" + (this.state.hoveredDate.getMonth() + 1)
            + "/" + this.state.hoveredDate.getDate()}
       <br/>
-      {this.state.hoveredValue}
+      {this.state.hoveredValue + "€"}
     </ReactTooltip>)
   }
 
