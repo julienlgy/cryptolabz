@@ -18,8 +18,9 @@ class CryptosMenu extends React.Component {
             className="icon"/>
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>
-              My Favourites
+            <DropdownItem
+                onClick={this.props.onEventCryptoFavorites}>
+              My Favorites
             </DropdownItem>
             <DropdownItem divider />
             <DropdownItem>

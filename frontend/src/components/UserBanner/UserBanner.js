@@ -98,7 +98,8 @@ class UserBanner extends React.Component {
                   onDoSearch={this.handleDoSearch}
               />
             )}
-            {this.state.isAuthentified && <CryptosMenu />}
+            {this.state.isAuthentified && <CryptosMenu 
+                onEventCryptoFavorites={this.props.onEventCryptoFavorites}/>}
             {this.state.isAuthentified && <UserMenu
                 onEventUserMyAccount={this.props.onEventUserMyAccount}
                 onEventUserSettings={this.props.onEventUserSettings}/>}
