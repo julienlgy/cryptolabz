@@ -1,0 +1,55 @@
+.addtag {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 20;
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  padding: 5ex 5ex 5ex 5ex;
+  border: 3px solid #ababab;
+  border-radius: 5ex;
+  background-color: rgba(0,0,0,0.75);
+}
+
+.overlay * {
+  margin: .5ex .5ex .5ex .5ex;
+}
+
+.addtag input {
+  color: black;
+  background-color: #cdcdcd;
+  border-color: #cdcdcd;
+  border-radius: .5ex;
+}
+
+.addtag input:focus {
+  background-color: #dedede;
+  border-color: #dedede;
+}
+
+.addtag Button {
+  font-weight: bold;
+  background-color:transparent;
+  border: 2px solid #dedede;
+  border-radius: 1ex;
+  cursor:pointer;
+}
+
+.addtag Button.close-btn {
+  background-color:black;
+  color: white;
+  border-radius: 50%;
+  margin-left: 1ex;
+  margin-bottom: 0.5ex;
+}

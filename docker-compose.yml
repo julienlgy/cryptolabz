@@ -4,21 +4,22 @@ services:
     image: cryptolabz
     container_name: cryptolabzapi
     working_dir: /usr/src/app
-    build: .
+    build: backend
     networks:
       - backend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./:/usr/src/app
+      - "8000:3000"
+    expose:
+      - '8000'
     depends_on:
       - db
-
-  web-cli:
-    image: cryptolabzapi
-    networks:
-      - backend
-    command: sh
+  front:
+    container_name: cryptolabzfront
+    build: frontend
+    ports:
+      - "80:80"
+    expose:
+      - '80'
 
   db:
     image: mysql:5.7

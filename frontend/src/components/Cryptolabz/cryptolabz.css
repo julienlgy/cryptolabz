@@ -1,0 +1,17 @@
+/* .cryptolabz {
+  color: white;
+  background-color: #292929;
+} */
+
+.main-title {
+  line-height: 1.15;
+  text-size-adjust: 100%;
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.news-bg {
+  color: white;
+  background-color: #343a40;
+  margin-top: 3rem;
+}
