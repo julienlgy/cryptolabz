@@ -47,15 +47,17 @@ app.use(function(err, req, res, next) {
   Logger.log("EXPRESS : An error occured : " + err);
 });
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(config.port, config.host, () => {
     console.log(`Cryptolabz server listening on port ${config.port}`);
     Logger.log("Cryptolabz Server started.");
   });
 });
 
+/*
 const coinbaseApi = new coinbaseAPI(60);
 coinbaseApi.start();
+*/
 
 const rssScheduler = new RSS();
 rssScheduler.start();
