@@ -16,3 +16,8 @@ T-WEB-700 Epitech Project
 - `ORM/` Sequelize ORM
 - `routes/` express routes
 - `scheduler/` Cryptocurrencies and RSS information getter
+
+### Todo
+
+- [ ] Sequelize ne fonctionne pas correctement, le "db" dans les scheduler est undefined.
+- [ ] Vérifier que Sequelize marche bien

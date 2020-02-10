@@ -1,17 +1,18 @@
-FROM node:11-alpine
+FROM node:12.15.0-alpine3.11
 
-RUN mkdir -p /usr/src/app
+WORKDIR /app
 
-WORKDIR /usr/src/app
+COPY package.json .
+COPY package-lock.json .
+
+# npm ci respect the lockfile, npm install doesn't, so this avoids some problems
+# that can appears when you have different versions.
+RUN npm install
 
 COPY . .
 
-COPY package.json ./
-# npm ci respect the lockfile, npm install doesn't, so this avoids some problems
-# that can appears when you have different versions.
-RUN npm ci
 RUN npm install -g sequelize-cli
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
