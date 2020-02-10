@@ -9,3 +9,9 @@
   padding-top: 3em;
   padding-bottom: 3em;
 }
+
+.news-bg {
+  color: white;
+  background-color: #343a40;
+  margin-top: 3rem;
+}

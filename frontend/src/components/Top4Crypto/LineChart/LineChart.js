@@ -55,8 +55,8 @@ class LineChart extends Component {
 
 LineChart.defaultProps = {
   data: [],
-  color: "black",
-  svgHeight: 200,
+  color: "#a8a8a8",
+  svgHeight: 100,
   svgWidth: 700
 };
 

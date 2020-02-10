@@ -4,11 +4,6 @@ body {
   /* background-color: #292929; */
 }
 
-* {
-  color: rgb(73, 73, 73);
-  background-color: white;
-}
-
 .container-fluid {
   padding: 0 0 0 0;
   width: 100%;

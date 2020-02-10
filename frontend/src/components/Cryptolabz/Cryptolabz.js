@@ -12,12 +12,16 @@ class Cryptolabz extends React.Component {
             <h1 className="display-4">Become a crypto scientist !</h1>
           </div>
         </div>
-        <div className="container-fluid">
+        <div className="container">
           <div className="row justify-content-around cryptolabz">
             <Top10Crypto />
           </div>
-          <div class="row justify-content-around cryptolabz">
-            <News />
+        </div>
+        <div className="container-fluid news-bg">
+          <div className="container">
+            <div class="row justify-content-around cryptolabz">
+              <News />
+            </div>
           </div>
         </div>
       </div>
