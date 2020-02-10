@@ -23,4 +23,4 @@ class ArticleSourceController {
     }
 }
 
-export default ArticleSourceController;
+module.exports = ArticleSourceController;

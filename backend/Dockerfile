@@ -7,7 +7,9 @@ WORKDIR /usr/src/app
 COPY . .
 
 COPY package.json ./
-RUN npm install
+# npm ci respect the lockfile, npm install doesn't, so this avoids some problems
+# that can appears when you have different versions.
+RUN npm ci
 RUN npm install -g sequelize-cli
 
 EXPOSE 3000

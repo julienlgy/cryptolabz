@@ -1,15 +1,18 @@
-# cryptolabz
+# Cryptolabz
+
 T-WEB-700 Epitech Project
 
-# Cryptolabz BACKEND
+## BACKEND
 
 ### Launch backend
-1.  run `docker-compose up`
+
+1. run `docker-compose build`, or `sudo docker-compose build` if needed.
+2. run `docker-compose up`, or `sudo docker-compose up` if needed.
 
 ### Project information
-------------
+
 - `controller/` link between sequelize and express
 - `log/` Specific logger
 - `ORM/` Sequelize ORM
 - `routes/` express routes
-- `scheduler/` Cryptocurrencies information getter
+- `scheduler/` Cryptocurrencies and RSS information getter

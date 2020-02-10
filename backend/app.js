@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const db = require('./models/index');
 const Logger = require('./middleware/logger').Logger;
 const coinbaseAPI = require('./services/scheduler/coinbase')
+const RSS = require('./services/scheduler/rss');
 
 
 // Express Params 
@@ -54,8 +55,11 @@ db.sequelize.sync({ force: true }).then(() => {
   })
 });
 
-const coinbaseApi = new coinbaseAPI(60)
+const coinbaseApi = new coinbaseAPI(60);
 //coinbaseApi.start();
+
+const rssScheduler = new RSS();
+rssScheduler.start();
 
 module.exports = app;
 

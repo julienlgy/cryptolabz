@@ -3,19 +3,18 @@
  * Last modified: 27/01/2020
  * EPITECH PROJECT
  */
-const axios = require('axios');
-const ArticleController = require("../controller/articlescontroller");
+const ArticleController = require("../../controllers/articlescontroller");
 
 class RSS {
-    constructor(speed = 30) {
-        console.log("COINBASE | API Class Loaded");
+    constructor(speed = 60) {
+        console.log("RSS | API Class Loaded");
         this.speed = speed;
         this.started = false;
     }
 
     start() {
         if (!this.isStarted()) {
-            console.log("COINBASE | Coinbase interval API Started")
+            console.log("RSS | RSS interval Started")
             this.started = true;
             this.perform();
             this.interval = setInterval(() => {
@@ -31,12 +30,10 @@ class RSS {
     }
 
     stop() {
-        if (this.isStarted()) {
-            console.log("COINBASE | API stopped")
+        if (this.started) {
+            console.log("RSS | API stopped")
             clearInterval(this.interval);
             this.started = false;
-        } else {
-            return false;
         }
     }
 
