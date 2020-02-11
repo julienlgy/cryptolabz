@@ -61,7 +61,7 @@ module.exports = {
     },
 
     web : {
-        async getCrytosByIds(req, res) {
+        async getCryptosByIds(req, res) {
             var ids = req.query.cmids;
             console.log(ids);
             if (typeof ids != "undefined" && ids ){
@@ -163,6 +163,66 @@ module.exports = {
                     message: "Missing parameters : period [daily, hourly, minute]"
                 })
             }
+        },
+
+        async getHome(req, res) {
+            var currentDate = new Date();
+            var startDate = new Date();
+            startDate.setHours(currentDate.getHours() - 2)
+            
+            // @TODO: Check if user is logged, and display his favorite cryptos instead
+
+            CryptoDB.findAll({
+                attributes : [ 'symbol' ],
+                where: { rank: { [Op.lt]: 6} },
+                raw: true
+            }).then((smbls) => {
+                var symbols = []
+                for (var i = 0; i < smbls.length; i++) {
+                    symbols.push(Object.values(smbls[i]))
+                }
+                console.log(symbols)
+                CryptoDBsHisto.findAll({
+                    attributes: [
+                        'symbol',
+                        [sequelize.fn('AVG', sequelize.col('price')), 'price'],
+                        [Sequelize.literal("DATE_FORMAT(`createdAt`, '%Y-%m-%d %H:%i:00')"), 'date']
+                    ],
+                    where: {
+                        "symbol": symbols,
+                        "createdAt": {
+                            [Op.between]: [startDate, currentDate]
+                        }
+                    },
+                    group: ['symbol', 'date']
+                }).then((histos) => {
+                        CryptoDB.findAll({
+                            where: { "symbol": symbols }
+                        }).then((cryptos) => {
+                            res.status(200).json({
+                                error: false,
+                                cryptos: cryptos,
+                                graph: histos
+                            })
+                        })
+                }).catch((err) => {
+                    console.error(err)
+                    res.status("500").json({
+                        error: true,
+                        message: "We're sorry, an error occured"
+                    })
+                    return
+                })
+                /*for (var i = 0, len = cryptos.length; i < len; i++) {
+                    
+                }*/
+            }).catch((err) => {
+                console.error(err)
+                res.status("500").json({
+                    error: true,
+                    message: "We're sorry, an error occured"
+                })
+            })
         }
 
     }
