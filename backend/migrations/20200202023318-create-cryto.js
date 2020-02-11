@@ -45,10 +45,23 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      rank: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      marketCap: {
+        allowNull : true,
+        type: Sequelize.FLOAT
+      },
+      description: {
+        allowNull: true,
+        unique: false,
+        type: Sequelize.TEXT('LONGTEXT')
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Crytos');
+    return queryInterface.dropTable('Cryptos');
   }
 };
