@@ -6,6 +6,9 @@
 
 const CryptoDB = require('../models/index').Crypto
 const CryptoDBsHisto = require('../models/index').CryptoHisto
+const Op = require('../models/index').Sequelize.Op;
+const sequelize = require('../models/index').sequelize;
+const Sequelize = require('../models/index').Sequelize;
 
 module.exports = {
     update(JsonCurrency) {
@@ -103,6 +106,61 @@ module.exports = {
                 res.status(400).json({
                     error: true,
                     message: "Content not given"
+                })
+            }
+        },
+        
+        async getCryptoHistoById(req, res) {
+            var cmid = req.params.cmid
+            var period = req.params.period
+            var currentDate = new Date();
+            var startDate = new Date();
+            var truncation = "%Y-%m-%d"
+
+            if (typeof cmid !== "undefined" && ["daily","hourly","minute"].includes(period)) {
+                switch(period) {
+                    case "daily":
+                        startDate.setDate(currentDate.getDate() - 60)
+                        break;
+                    case "hourly":
+                        startDate.setDate(currentDate.getDate() - 2)
+                        truncation = "%Y-%m-%d %H:00:00"
+                        break;
+                    case "minute":
+                        startDate.setHours(currentDate.getHours() - 2)
+                        truncation = "%Y-%m-%d %H:%i:00"
+                }
+                console.log(startDate);
+                console.log(currentDate);
+                CryptoDBsHisto.findAll({
+                    attributes: [
+                        [sequelize.fn('AVG', sequelize.col('price')), 'price'],
+                        [Sequelize.literal("DATE_FORMAT(`createdAt`, '"+truncation+"')"), 'date'],
+                        //'createdAt', [sequelize.fn('date_trunc', truncation, sequelize.col('createdAt'))]
+                    ],
+                    where: {
+                        "symbol": cmid,
+                        "createdAt": {
+                            [Op.between]: [startDate, currentDate]
+                        }
+                    },
+                    group: ['date']
+                }).then((histos) => {
+                    res.status(200).json({
+                        error: false,
+                        data: histos
+                    })
+                }).catch((err) => {
+                    console.error(err);
+                    res.status(500).json({
+                        error: true,
+                        message: "An error occured. Please check your CMID."
+                    })
+                })
+            } else {
+                res.status(400).json({
+                    error: true,
+                    message: "Missing parameters : period [daily, hourly, minute]"
                 })
             }
         }
