@@ -9,4 +9,8 @@ const UserController = require('../controllers/usercontroller')
  */
 router.post("/register", UserController.create)
 
+router.post("/login", UserController.login)
+
+router.put("/update", UserController.update)
+
 module.exports = router;
