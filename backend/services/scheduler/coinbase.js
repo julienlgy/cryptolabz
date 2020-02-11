@@ -39,7 +39,10 @@ class CoinbaseAPI {
                       symbol: element.symbol,
                       slug: element.slug,
                       currentPrice: element.latest,
-                      imgUrl: element.image_url
+                      imgUrl: element.image_url,
+                      rank: element.rank,
+                      market_cap: element.market_cap,
+                      description: element.description
                     })
           });
         })

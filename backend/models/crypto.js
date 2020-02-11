@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Cryto = sequelize.define('Crypto', {
+  const Crypto = sequelize.define('Crypto', {
     name: DataTypes.STRING,
     symbol: DataTypes.STRING,
     slug: DataTypes.STRING,
@@ -8,10 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     openingPrice: DataTypes.FLOAT,
     low: DataTypes.FLOAT,
     high: DataTypes.FLOAT,
-    imgUrl: DataTypes.STRING
+    imgUrl: DataTypes.STRING,
+    rank: DataTypes.INTEGER,
+    marketCap: DataTypes.FLOAT,
+    description: DataTypes.TEXT
   }, {});
-  Cryto.associate = function(models) {
+  Crypto.associate = function(models) {
     // associations can be defined here
   };
-  return Cryto;
+  return Crypto;
 };

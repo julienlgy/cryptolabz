@@ -19,7 +19,7 @@ const cryptoscontroller = require('../controllers/cryptoscontroller')
  * -> highest price of the day
  * -> URL of the corresponding image of the cryptocurrency
  */
-router.get("/", cryptoscontroller.web.getCrytosByIds);
+router.get("/", cryptoscontroller.web.getCryptosByIds);
 
 /**
  * GET / CRYTPO
@@ -41,6 +41,7 @@ router.get("/:cmid", cryptoscontroller.web.getCryptoById);
  */
 router.get("/:cmid/history/:period", cryptoscontroller.web.getCryptoHistoById)
 
+router.get("/get/home", cryptoscontroller.web.getHome)
 /**
  * POST / CRYPTO
  * 
