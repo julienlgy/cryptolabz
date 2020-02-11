@@ -17,7 +17,7 @@ var cors = require('cors')
 var app = express();
 app.use(express.json());
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors({credentials: true, origin: true}))
 app.use(bodyParser.urlencoded({ extended: false })),
 app.use(cookieParser());
 
