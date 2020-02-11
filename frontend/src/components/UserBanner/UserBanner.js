@@ -43,12 +43,12 @@ class UserBanner extends React.Component {
   }
 
   handleEventSignIn = (user) => {
-    console.log(user)
     this.setState({
       display_overlay: '',
       isAuthentified: true,
       userAccount: user
     });
+    this.props.onEventSignIn(user)
   }
 
   handleUpdateSearch = search_string => {};

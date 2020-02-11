@@ -9,8 +9,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display_body: "Cryptolabz"
+      display_body: "Cryptolabz",
+      userAccount: {}
     };
+  }
+
+  handleEventSignIn = (user) => {
+    this.setState({
+      userAccount: user
+    });
   }
 
   handleEventHome = () => {
@@ -41,13 +48,16 @@ class App extends React.Component {
     return (
       <div className="App">
         <UserBanner
+            onEventSignIn={this.handleEventSignIn}
             onEventHome={this.handleEventHome}
             onEventUserMyAccount={this.handleEventUserMyAccount}
             onEventUserSettings={this.handleEventUserSettings}
             onEventCryptoFavorites={this.handleEventCryptoFavorites}/>
           {this.state.display_body === 'Cryptolabz' && <Cryptolabz />}
-          {this.state.display_body === 'MyAccount' && <MyAccount />}
-          {this.state.display_body === 'Settings' && <Settings />}
+          {this.state.display_body === 'MyAccount' && <MyAccount
+              user={this.state.userAccount}/>}
+          {this.state.display_body === 'Settings' && <Settings
+              user={this.state.userAccount}/>}
           {this.state.display_body === 'Favorites' && <Favorites />}
       </div>
     );

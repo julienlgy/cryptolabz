@@ -13,13 +13,15 @@ import { Col,
 class MyAccount extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init MyAccount with values from database")
+    console.log(props)
     this.state = {
+      user: this.props.user,
       oldPasswordOk: false,
       confirmPasswordOk: false,
-      email: '',
-      firstName: '',
-      lastName: '',
+      email: props.user.email,
+      firstName: props.user.firstname,
+      lastName: props.user.lastname,
+      oldPassword: props.user.password,
       newPassword: '',
       confirmPassword: ''
     }
@@ -42,7 +44,7 @@ class MyAccount extends Component {
 
   handleChangeOldPassword = (e) => {
     console.log("TODO check password " + e.target.value); //TODO check with back
-    if (e.target.value === "ok") {
+    if (e.target.value === this.state.oldPassword) {
       this.setState({
         ...this.state,
         oldPasswordOk: true
