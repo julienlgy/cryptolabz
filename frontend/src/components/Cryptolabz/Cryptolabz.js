@@ -19,7 +19,7 @@ class Cryptolabz extends React.Component {
         </div>
         <div className="container-fluid news-bg">
           <div className="container">
-            <div class="row justify-content-around cryptolabz">
+            <div className="row justify-content-around cryptolabz">
               <News />
             </div>
           </div>

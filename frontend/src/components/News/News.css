@@ -2,3 +2,9 @@
   margin-top: 7vh;
   margin-bottom: 7vh;
 }
+
+a {
+  color: white;
+  font-weight: bold;
+  text-decoration: underline;
+}

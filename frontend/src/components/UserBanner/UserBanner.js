@@ -8,6 +8,8 @@ import OverlaySignIn from "./OverlaySignIn/OverlaySignIn"
 import OverlaySignUp from "./OverlaySignUp/OverlaySignUp"
 import { Button, Nav, Navbar } from "reactstrap";
 
+import API from '../../API'
+
 class UserBanner extends React.Component {
   constructor(props) {
     super(props);
@@ -37,9 +39,12 @@ class UserBanner extends React.Component {
   }
 
   handleClickSignOut() {
+    API.token = null
     this.setState({
-      isAuthentified: false
+      isAuthentified: false,
+      userAccount: null
     });
+    this.props.onEventSignOut()
   }
 
   handleEventSignIn = (user) => {
@@ -53,9 +58,9 @@ class UserBanner extends React.Component {
 
   handleUpdateSearch = search_string => {};
 
-  handleDoSearch = (search_string) => {
+  handleDoSearch = search_string => {
     console.log("todo: do search " + search_string);
-  }
+  };
 
   renderSignIn() {
     return (
@@ -106,9 +111,9 @@ class UserBanner extends React.Component {
           color="dark"
           expand="md"
           fixed="top"
-          className="userbanner navbar-default navbar-size">
-          <div className="mr-auto"
-              onClick={this.props.onEventHome}>
+          className="userbanner navbar-default navbar-size"
+        >
+          <div className="mr-auto" onClick={this.props.onEventHome}>
             <span className="cryptolabz">Cryptolabz</span>
           </div>
 
@@ -118,15 +123,22 @@ class UserBanner extends React.Component {
 
             {this.state.isAuthentified && (
               <SearchBar
-                  onUpdateSearch={this.handleUpdateSearch}
-                  onDoSearch={this.handleDoSearch}
+                onUpdateSearch={this.handleUpdateSearch}
+                onDoSearch={this.handleDoSearch}
               />
             )}
-            {this.state.isAuthentified && <CryptosMenu 
-                onEventCryptoFavorites={this.props.onEventCryptoFavorites}/>}
-            {this.state.isAuthentified && <UserMenu
+            {this.state.isAuthentified && (
+              <CryptosMenu
+                onEventCryptoFavorites={this.props.onEventCryptoFavorites}
+              />
+            )}
+            {this.state.isAuthentified && (
+              <UserMenu
                 onEventUserMyAccount={this.props.onEventUserMyAccount}
-                onEventUserSettings={this.props.onEventUserSettings}/>}
+                onEventUserSettings={this.props.onEventUserSettings}
+                onEventSignOut={() => this.handleClickSignOut()}
+              />
+            )}
             {this.state.isAuthentified && this.renderSignOut()}
           </Nav>
         </Navbar>
