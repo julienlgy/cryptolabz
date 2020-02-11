@@ -1,0 +1,33 @@
+.userbanner * {
+  background-color: transparent;
+}
+
+.userbanner .mr-auto {
+  background-color: white;
+}
+
+.userbanner .mr-auto .cryptolabz {
+  background-color: #343a40;
+}
+
+.userbanner, .userbanner .cryptolabz {
+  color: white;
+}
+
+.navbar-default {
+  max-height: 6ex;
+}
+
+.navbar-size {
+  height: 6ex;
+}
+
+.userbanner .cryptolabz {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,32 @@
+.favorites {
+  color: #292929;
+}
+
+.favorites .chart {
+  max-height: 20ex;
+}
+
+.favorites text {
+  fill: #292929;
+}
+
+.favorites .chart #center-axis-container path {
+  stroke: #42a5f5;
+}
+
+.favorites .chart #center-axis-container path.Component-root-4 {
+  stroke: rgb(224, 224, 224);
+}
+
+.favorites .chart {
+  padding: 10px 5px 10px 5px;
+  border-radius: 10px;
+}
+
+.favorites .trend-positive {
+  color: #129912;
+}
+
+.favorites .trend-negative {
+  color: #882222;
+}
