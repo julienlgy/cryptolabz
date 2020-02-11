@@ -9,23 +9,21 @@ class Top10Crypto extends Component {
   render() {
     return (
       <div class="col-12">
-        <div class="rounded-lg">
-          <div class="table-responsive shadow-lg p-3 mb-5 bg-white rounded">
-            <Table borderless hover>
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Change</th>
-                  <th scope="col">Chart</th>
-                </tr>
-              </thead>
-              <tbody>
-                <RankValues />
-              </tbody>
-            </Table>
-          </div>
+        <div class="table-responsive shadow-lg mb-5 bg-white rounded-lg">
+          <Table borderless hover responsive>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Change</th>
+                <th scope="col">Chart</th>
+              </tr>
+            </thead>
+            <tbody>
+              <RankValues />
+            </tbody>
+          </Table>
         </div>
       </div>
     );

@@ -1,11 +1,13 @@
-import './cryptosmenu.css'
+import "./cryptosmenu.css";
 
-import React from 'react';
-import icon from './graph_icon.svg'
-import { UncontrolledDropdown,
+import React from "react";
+import icon from "./graph_icon.svg";
+import {
+  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap'
+  DropdownItem
+} from "reactstrap";
 
 class CryptosMenu extends React.Component {
   render() {
@@ -13,23 +15,21 @@ class CryptosMenu extends React.Component {
       <span className="cryptosmenu">
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle nav caret>
-          <img src={icon} alt="cryptos_menu_icon"
-            longdesc="made by https://www.flaticon.com/authors/good-ware"
-            className="icon"/>
+            <img
+              src={icon}
+              alt="cryptos_menu_icon"
+              longdesc="made by https://www.flaticon.com/authors/good-ware"
+              className="icon"
+            />
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem
-                onClick={this.props.onEventCryptoFavorites}>
+            <DropdownItem onClick={this.props.onEventCryptoFavorites}>
               My Favorites
             </DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>
-              Trending
-            </DropdownItem>
+            <DropdownItem>Trending</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>
-              All cryptos
-            </DropdownItem>
+            <DropdownItem>All cryptos</DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       </span>
