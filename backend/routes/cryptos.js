@@ -1,11 +1,12 @@
 /**
  * Cryptolabz 2020
  * Routes cryptos
- * last modified : 20/01/2020
+ * last modified : 10/02/2020
  */
 var express = require('express')
 var router = express.Router()
 
+const cryptoscontroller = require('../controllers/cryptoscontroller')
 /**
  * GET / CRYPTOS
  * 
@@ -18,18 +19,14 @@ var router = express.Router()
  * -> highest price of the day
  * -> URL of the corresponding image of the cryptocurrency
  */
-router.get("/", (req, res, next) => {
- res.json({});
-});
+router.get("/", cryptoscontroller.web.getCrytosByIds);
 
 /**
  * GET / CRYTPO
  * 
  * cmid: cryptocurrency Id. User MUST be logged in. Returns information about a cryptocurrency.
  */
-router.get("/:cmid", (req, res, next) => {
-
-});
+router.get("/:cmid", cryptoscontroller.web.getCryptoById);
 
 /**
  * GET / CRYPTO HISTORY

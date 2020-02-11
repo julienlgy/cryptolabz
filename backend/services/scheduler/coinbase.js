@@ -6,8 +6,7 @@
 
 //const schedule = require('node-schedule')
 const axios = require('axios')
-const CryptosController = require('../../controllers/cryptoscontroller')
-var cryptosController = new CryptosController();
+const cryptosController = require('../../controllers/cryptoscontroller')
 
 class CoinbaseAPI {
 
@@ -40,7 +39,7 @@ class CoinbaseAPI {
                       symbol: element.symbol,
                       slug: element.slug,
                       currentPrice: element.latest,
-                      imageUrl: element.image_url
+                      imgUrl: element.image_url
                     })
           });
         })
