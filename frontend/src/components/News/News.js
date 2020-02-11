@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import "./News.css";
-import PropTypes from "prop-types";
 
 class News extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="News d-flex flex-wrap">
-        <div class="news col-12 col-md-6">
+        <div className="news col-12 col-md-6">
           <h2>News</h2>
           <article>
             <p>
@@ -21,10 +17,10 @@ class News extends Component {
               elit pharetra, pharetra nunc posuere, pretium nisi. Vivamus ut
               volutpat libero.
             </p>
-            <a href="#">view more</a>
+            <a href="/#">view more</a>
           </article>
         </div>
-        <div class="news col-12 col-md-6">
+        <div className="news col-12 col-md-6">
           <h2>News</h2>
           <article>
             <p>
@@ -41,10 +37,10 @@ class News extends Component {
               hendrerit, suscipit augue eget, semper lectus. In vel elementum
               justo, sed commodo nunc.
             </p>
-            <a href="#">view more</a>
+            <a href="/#">view more</a>
           </article>
         </div>
-        <div class="news col-12">
+        <div className="news col-12">
           <h2>News</h2>
           <article>
             <p>
@@ -75,13 +71,12 @@ class News extends Component {
               pharetra, pharetra nunc posuere, pretium nisi. Vivamus ut volutpat
               libero.
             </p>
-            <a href="#">view more</a>
+            <a href="/#">view more</a>
           </article>
         </div>
       </div>
     );
   }
 }
-News.propTypes = {};
 
 export default News;
