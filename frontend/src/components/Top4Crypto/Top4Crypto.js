@@ -21,9 +21,7 @@ class Top10Crypto extends Component {
                   <th scope="col">Chart</th>
                 </tr>
               </thead>
-              <tbody>
-                <RankValues />
-              </tbody>
+              <RankValues />
             </Table>
           </div>
         </div>

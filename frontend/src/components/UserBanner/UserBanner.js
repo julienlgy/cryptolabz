@@ -4,32 +4,46 @@ import React from "react";
 import CryptosMenu from "./CryptosMenu/CryptosMenu";
 import UserMenu from "./UserMenu/UserMenu";
 import SearchBar from "./SearchBar/SearchBar";
+import OverlaySignIn from "./OverlaySignIn/OverlaySignIn"
+import OverlaySignUp from "./OverlaySignUp/OverlaySignUp"
 import { Button, Nav, Navbar } from "reactstrap";
 
 class UserBanner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display_body: 'Cryptolabz',
+      display_overlay: '',
       isAuthentified: false
     };
   }
 
+  handleCancel = () => {
+    this.setState({
+      display_overlay: ''
+    });
+  }
+
   handleClickSignIn() {
     this.setState({
-      isAuthentified: true
+      display_overlay: 'signIn'
     });
   }
 
   handleClickSignUp() {
     this.setState({
-      isAuthentified: true
+      display_overlay: 'signUp'
     });
   }
 
   handleClickSignOut() {
     this.setState({
       isAuthentified: false
+    });
+  }
+
+  handleEventSignIn = () => {
+    this.setState({
+      isAuthentified: true
     });
   }
 
@@ -78,6 +92,12 @@ class UserBanner extends React.Component {
   render() {
     return (
       <div className="userbanner">
+        {this.state.display_overlay === 'signIn' && <OverlaySignIn
+            onEventSignIn={this.handleEventSignIn}
+            onCancel={this.handleCancel}/>}
+        {this.state.display_overlay === 'signUp' && <OverlaySignUp
+            onEventSignIn={this.handleEventSignIn}
+            onCancel={this.handleCancel}/>}
         <Navbar
           color="dark"
           expand="md"
