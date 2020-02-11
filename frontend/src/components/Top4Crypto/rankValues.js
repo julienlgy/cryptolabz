@@ -14,10 +14,9 @@ class RankValues extends Component {
   }
 
   componentDidMount() {
-    axios.get(new API().url_crypto + "btc")
+    axios.get(API.url_crypto + "btc,eth")
     .then(response => {
-      console.log(response.data)
-      this.setState({ data: new Array(response.data) });
+      this.setState({ data: response.data.data });
     })
     .catch(error => {
       console.log(error);

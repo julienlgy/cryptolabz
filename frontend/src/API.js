@@ -4,7 +4,7 @@ const ROUTE_LOGIN = "/users/login"
 const ROUTE_REGISTER = "/users/register"
 const ROUTE_UPDATE = "/users/update"
 
-export default class API {
+class API {
   url = BASE_URL
 
   url_login = BASE_URL + ROUTE_LOGIN
@@ -13,3 +13,5 @@ export default class API {
 
   url_crypto = BASE_URL + ROUTE_CRYPTO
 }
+
+export default API = new API()

@@ -13,7 +13,8 @@ class UserBanner extends React.Component {
     super(props);
     this.state = {
       display_overlay: '',
-      isAuthentified: false
+      isAuthentified: false,
+      userAccount: null
     };
   }
 
@@ -41,9 +42,12 @@ class UserBanner extends React.Component {
     });
   }
 
-  handleEventSignIn = () => {
+  handleEventSignIn = (user) => {
+    console.log(user)
     this.setState({
-      isAuthentified: true
+      display_overlay: '',
+      isAuthentified: true,
+      userAccount: user
     });
   }
 

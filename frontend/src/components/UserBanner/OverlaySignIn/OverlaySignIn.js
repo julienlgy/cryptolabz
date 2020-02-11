@@ -36,11 +36,10 @@ class OverlaySignIn extends React.Component {
       email: this.state.email,
       password: this.state.password
     }
-    axios.post(new API().url_login, body_login)
+    axios.post(API.url_login, body_login)
     .then(response => {
-      console.log(response.data)
-      //TODO: check response + save token
-      this.props.onEventSignIn()
+      API.token = response.data.token
+      this.props.onEventSignIn(response.data.user)
     })
     .catch(error => {
       console.log(error);
@@ -65,7 +64,7 @@ class OverlaySignIn extends React.Component {
                   name="email" id="myaccount_mail" />
             </FormGroup>
             <FormGroup>
-              <Label for="password">Old password</Label>
+              <Label for="password">Password</Label>
               <Input type="password" required
                   name="password"
                   id="signin_password"

@@ -47,14 +47,16 @@ class OverlaySignUp extends React.Component {
 
   handleClickOnSignUp() {
     let body_signup = {
+      username: this.state.email,
       email: this.state.email,
+      firstname: this.state.firstName,
+      lastname: this.state.lastName,
       password: this.state.password
     }
-    axios.post(new API().url_register, body_signup)
+    axios.post(API.url_register, body_signup)
     .then(response => {
-      console.log(response.data)
-      //TODO: check response + save token
-      this.props.onEventSignIn()
+      API.token = response.data.token
+      this.props.onEventSignIn(response.data.user)
     })
     .catch(error => {
       console.log(error);
@@ -93,7 +95,7 @@ class OverlaySignUp extends React.Component {
                   name="lastname" id="myaccount_lastname" />
             </FormGroup>
             <FormGroup>
-              <Label for="password">Old password</Label>
+              <Label for="password">Password</Label>
               <Input type="password" required
                   name="password"
                   id="signUp_password"
