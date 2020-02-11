@@ -46,6 +46,11 @@
   cursor:pointer;
 }
 
+#signin_tooltip_error {
+  color: white;
+  background-color: #700d0d;
+}
+
 .overlaysignin Button.close-btn {
   background-color:black;
   color: white;

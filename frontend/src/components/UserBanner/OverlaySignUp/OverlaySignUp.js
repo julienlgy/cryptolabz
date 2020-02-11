@@ -5,7 +5,8 @@ import { Button,
   Form,
   FormGroup,
   Input,
-  Label } from 'reactstrap'
+  Label,
+  Tooltip } from 'reactstrap'
 
 import axios from "axios";
 import API from "./../../../API"
@@ -14,6 +15,7 @@ class OverlaySignUp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      hasFailed: false,
       email: '',
       firstName: '',
       lastName: '',
@@ -55,13 +57,22 @@ class OverlaySignUp extends React.Component {
     }
     axios.post(API.url_register, body_signup)
     .then(response => {
-      API.token = response.data.token
-      this.props.onEventSignIn(response.data.user)
+      axios.post(API.url_login, body_signup)
+      .then(response => {
+        API.token = response.data.token
+        this.props.onEventSignIn(response.data.user)
+      })
+      .catch(error => {
+        console.log(error);
+        this.props.onCancel()
+      })
     })
     .catch(error => {
       console.log(error);
+      this.setState({
+        hasFailed: true
+      })
     });
-    
   }
 
   handleClickOnClose() {
@@ -103,9 +114,18 @@ class OverlaySignUp extends React.Component {
             </FormGroup>
           </Form>
           <Button type="button"
+              id="signup_sign_up_button"
               onClick={() => this.handleClickOnSignUp()}>
             Sign up
           </Button>
+          <Tooltip
+              id="signup_tooltip_error"
+              fade={true}
+              placement="bottom"
+              isOpen={this.state.hasFailed}
+              target="signup_sign_up_button">
+            {this.state.failureMessage}
+          </Tooltip>
           <button
               className="close-btn"
               onClick={() => this.handleClickOnClose()}>

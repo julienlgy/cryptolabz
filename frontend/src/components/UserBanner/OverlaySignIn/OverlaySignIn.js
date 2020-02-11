@@ -5,7 +5,8 @@ import { Button,
   Form,
   FormGroup,
   Input,
-  Label } from 'reactstrap'
+  Label,
+  Tooltip } from 'reactstrap'
 
 import axios from "axios";
 import API from "./../../../API"
@@ -15,7 +16,8 @@ class OverlaySignIn extends React.Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      hasFailed: false
     }
   }
 
@@ -43,6 +45,9 @@ class OverlaySignIn extends React.Component {
     })
     .catch(error => {
       console.log(error);
+      this.setState({
+        hasFailed: true
+      })
     });
     
   }
@@ -72,9 +77,18 @@ class OverlaySignIn extends React.Component {
             </FormGroup>
           </Form>
           <Button type="button"
+              id="signin_sign_in_button"
               onClick={() => this.handleClickOnSignIn()}>
             Sign in
           </Button>
+          <Tooltip
+              id="signin_tooltip_error"
+              fade={true}
+              placement="bottom"
+              isOpen={this.state.hasFailed}
+              target="signin_sign_in_button">
+            Sign in failed.
+          </Tooltip>
           <button
               className="close-btn"
               onClick={() => this.handleClickOnClose()}>

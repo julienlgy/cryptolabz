@@ -26,6 +26,11 @@
   margin: .5ex .5ex .5ex .5ex;
 }
 
+#signup_tooltip_error {
+  color: white;
+  background-color: #700d0d;
+}
+
 .overlaysignup input {
   color: black;
   background-color: #cdcdcd;
