@@ -16,8 +16,17 @@ class UserBanner extends React.Component {
     this.state = {
       display_overlay: '',
       isAuthentified: false,
-      userAccount: null
+      userAccount: this.props.userAccount
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userAccount === null || this.state.userAccount === null
+        || this.props.userAccount.username === this.state.userAccount.username)
+      return
+    this.setState({
+      userAccount: this.props.userAccount
+    })
   }
 
   handleCancel = () => {
@@ -120,6 +129,12 @@ class UserBanner extends React.Component {
           <Nav>
             {!this.state.isAuthentified && this.renderSignIn()}
             {!this.state.isAuthentified && this.renderSignUp()}
+
+            {this.state.isAuthentified && (
+              <p className="welcome">
+                Bienvenue {this.state.userAccount.username}
+              </p>
+            )}
 
             {this.state.isAuthentified && (
               <SearchBar

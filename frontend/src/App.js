@@ -58,6 +58,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <UserBanner
+            userAccount={this.state.userAccount}
             onEventSignIn={this.handleEventSignIn}
             onEventSignOut={this.handleEventSignOut}
             onEventHome={this.handleEventHome}
@@ -67,12 +68,13 @@ class App extends React.Component {
           {/* <Router history={history}>
             <Routes />
           </Router> */}
-          {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
-          {this.state.display_body === "MyAccount" && <MyAccount
-              user={this.state.userAccount}/>}
-          {this.state.display_body === "Settings" && <Settings
-              user={this.state.userAccount}/>}
-          {this.state.display_body === "Favorites" && <Favorites />}
+        {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
+        {this.state.display_body === "MyAccount" && <MyAccount
+            user={this.state.userAccount}
+            onEventUpdate={this.handleEventSignIn}/>}
+        {this.state.display_body === "Settings" && <Settings
+            user={this.state.userAccount}/>}
+        {this.state.display_body === "Favorites" && <Favorites />}
       </div>
     );
   }
