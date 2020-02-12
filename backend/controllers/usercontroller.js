@@ -92,6 +92,16 @@ module.exports = {
         if (tokenController.check(req)) {
             tokenController.getUser(req)
                 .then((user) => {
+                    if (password) {
+                        if (!bcrypt.compareSync(user.password, req.body.oldpassword)) {
+                            res.status("403").json({
+                                error: true,
+                                message: "Wrong old password"
+                            })
+                        } else {
+                            password = bcrypt.hashSync(password, 10)
+                        }
+                    }
                     db.User.update(
                         {
                          username:username, firstname:firstname, lastname:lastname, email:email, password:password

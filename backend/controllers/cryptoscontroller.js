@@ -9,6 +9,7 @@ const CryptoDBsHisto = require('../models/index').CryptoHisto
 const Op = require('../models/index').Sequelize.Op;
 const sequelize = require('../models/index').sequelize;
 const Sequelize = require('../models/index').Sequelize;
+const tokenController= require('./tokencontroller')
 
 module.exports = {
     update(JsonCurrency) {
@@ -223,6 +224,26 @@ module.exports = {
                     message: "We're sorry, an error occured"
                 })
             })
+        },
+
+        async getAll(req, res) {
+            var user = null
+            if (user = tokenController.getUser(req)) {
+                CryptoDB.findAll({
+                    attributes: [ 'symbol', 'name' ]
+                }).then((crypto) => {
+                    res.json({
+                        error: false,
+                        data: crypto
+                    })
+                }).catch((err) => {
+                    console.error(err)
+                    res.status(500).json({
+                        error:true,
+                        message: "An error occured"
+                    })
+                })
+            }
         }
 
     }
