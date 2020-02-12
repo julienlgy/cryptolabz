@@ -1,5 +1,6 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import Route from "./Route";
 import Cryptolabz from "../components/Cryptolabz/Cryptolabz";
 import Favorites from "../components/Favorites/Favorites";
 import MyAccount from "../components/MyAccount/MyAccount";

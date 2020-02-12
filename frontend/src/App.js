@@ -1,9 +1,9 @@
 import React from "react";
-import { Router } from "react-router-dom";
-import history from "./services/history";
-import Routes from "./routes";
-import UserBanner from "./components/UserBanner/UserBanner";
+// import { Router } from "react-router-dom";
+// import history from "./services/history";
+// import Routes from "./routes";
 import Cryptolabz from "./components/Cryptolabz/Cryptolabz";
+import UserBanner from "./components/UserBanner/UserBanner";
 import MyAccount from "./components/MyAccount/MyAccount";
 import Settings from "./components/Settings/Settings";
 import Favorites from "./components/Favorites/Favorites";
@@ -17,25 +17,24 @@ class App extends React.Component {
     };
   }
 
-  handleEventSignIn = (user) => {
+  handleEventSignIn = user => {
     this.setState({
       userAccount: user
     });
-  }
+  };
 
-  handleEventSignOut = (user) => {
+  handleEventSignOut = user => {
     this.setState({
       display_body: "Cryptolabz",
       userAccount: null
     });
-  }
+  };
 
   handleEventHome = () => {
     this.setState({
       display_body: "Cryptolabz"
     });
   };
-
   handleEventUserMyAccount = () => {
     this.setState({
       display_body: "MyAccount"

@@ -4,17 +4,17 @@ import React from "react";
 import CryptosMenu from "./CryptosMenu/CryptosMenu";
 import UserMenu from "./UserMenu/UserMenu";
 import SearchBar from "./SearchBar/SearchBar";
-import OverlaySignIn from "./OverlaySignIn/OverlaySignIn"
-import OverlaySignUp from "./OverlaySignUp/OverlaySignUp"
+import OverlaySignIn from "./OverlaySignIn/OverlaySignIn";
+import OverlaySignUp from "./OverlaySignUp/OverlaySignUp";
 import { Button, Nav, Navbar } from "reactstrap";
 
-import API from '../../API'
+import API from "../../API";
 
 class UserBanner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display_overlay: '',
+      display_overlay: "",
       isAuthentified: false,
       userAccount: this.props.userAccount
     };
@@ -31,39 +31,39 @@ class UserBanner extends React.Component {
 
   handleCancel = () => {
     this.setState({
-      display_overlay: ''
+      display_overlay: ""
     });
-  }
+  };
 
   handleClickSignIn() {
     this.setState({
-      display_overlay: 'signIn'
+      display_overlay: "signIn"
     });
   }
 
   handleClickSignUp() {
     this.setState({
-      display_overlay: 'signUp'
+      display_overlay: "signUp"
     });
   }
 
   handleClickSignOut() {
-    API.token = null
+    API.token = null;
     this.setState({
       isAuthentified: false,
       userAccount: null
     });
-    this.props.onEventSignOut()
+    this.props.onEventSignOut();
   }
 
-  handleEventSignIn = (user) => {
+  handleEventSignIn = user => {
     this.setState({
-      display_overlay: '',
+      display_overlay: "",
       isAuthentified: true,
       userAccount: user
     });
-    this.props.onEventSignIn(user)
-  }
+    this.props.onEventSignIn(user);
+  };
 
   handleUpdateSearch = search_string => {};
 
@@ -126,21 +126,27 @@ class UserBanner extends React.Component {
   render() {
     return (
       <div className="userbanner">
-        {this.state.display_overlay === 'signIn' && <OverlaySignIn
+        {this.state.display_overlay === "signIn" && (
+          <OverlaySignIn
             onEventSignIn={this.handleEventSignIn}
-            onCancel={this.handleCancel}/>}
-        {this.state.display_overlay === 'signUp' && <OverlaySignUp
+            onCancel={this.handleCancel}
+          />
+        )}
+        {this.state.display_overlay === "signUp" && (
+          <OverlaySignUp
             onEventSignIn={this.handleEventSignIn}
-            onCancel={this.handleCancel}/>}
+            onCancel={this.handleCancel}
+          />
+        )}
         <Navbar
           color="dark"
           expand="md"
           fixed="top"
           className="userbanner navbar-default navbar-size"
         >
-          <div className="mr-auto" onClick={this.props.onEventHome}>
+          <a href="/" className="mr-auto">
             <span className="cryptolabz">Cryptolabz</span>
-          </div>
+          </a>
 
           {!this.state.isAuthentified && this.renderNotAuthentified()}
           {this.state.isAuthentified && this.renderAuthentified()}
