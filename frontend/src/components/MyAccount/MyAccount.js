@@ -13,14 +13,15 @@ import { Col,
 class MyAccount extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init MyAccount with values from database")
+    console.log(props)
     this.state = {
+      user: this.props.user,
       oldPasswordOk: false,
       confirmPasswordOk: false,
-      email: '',
-      username: '',
-      firstName: '',
-      lastName: '',
+      email: props.user.email,
+      firstName: props.user.firstname,
+      lastName: props.user.lastname,
+      oldPassword: props.user.password,
       newPassword: '',
       confirmPassword: ''
     }
@@ -28,7 +29,6 @@ class MyAccount extends Component {
 
   handleClickUpdateProfile() {
     if ((this.state.email === '')
-        || (this.state.username === '')
         || (this.state.firstName === '')
         || (this.state.lastName === ''))
       return;
@@ -44,7 +44,7 @@ class MyAccount extends Component {
 
   handleChangeOldPassword = (e) => {
     console.log("TODO check password " + e.target.value); //TODO check with back
-    if (e.target.value === "ok") {
+    if (e.target.value === this.state.oldPassword) {
       this.setState({
         ...this.state,
         oldPasswordOk: true
@@ -69,12 +69,6 @@ class MyAccount extends Component {
   handleChangeEmail = (e) => {
     this.setState({
       email: e.target.value
-    });
-  }
-
-  handleChangeUsername = (e) => {
-    this.setState({
-      username: e.target.value
     });
   }
 
@@ -150,13 +144,6 @@ class MyAccount extends Component {
                     value={this.state.email}
                     onChange={this.handleChangeEmail.bind(this)}
                     name="email" id="myaccount_mail" />
-              </FormGroup>
-              <FormGroup>
-                <Label for="username">Username</Label>
-                <Input type="text" required
-                    value={this.state.username}
-                    onChange={this.handleChangeUsername.bind(this)}
-                    name="username" id="myaccount_username" />
               </FormGroup>
               <FormGroup>
                 <Label for="firstname">First name</Label>

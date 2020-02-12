@@ -1,16 +1,21 @@
 /**
  * Cryptolabz 2020
  * EPITECH PROJECT
- * last modified : 20/01/2020
+ * last modified : 11/02/2020
  */
 const db = require('../models/index')
 const bcrypt = require('bcryptjs')
-
+const tokenController = require('./tokencontroller')
 module.exports = {
   async create(req, res) {
-    
+      if (tokenController.check(req)) {
+          res.status(403).json({
+              error: true,
+              message: "You are already logged"
+          })
+      }
     const password = bcrypt.hashSync(req.body.password, 10)
-        
+      console.log(password)  
         const {
             email,
             username,
@@ -29,86 +34,83 @@ module.exports = {
           .then(user => res.status(201).json({
             error: false,
             data: user,
-            message: 'New user created.'
+            token: tokenController.sign(user.id)
           }))
           .catch(error => res.json({
             error: true,
-            data: [],
-            error
+            message: error.message
           }));
-        }
-}
+    },
 
-/*class UserController {
-    constructor() {
-        this.db = require('../models/index')
-    }
-    register(params) {
-        return new Promise((resolve, reject) => {
-            var newUser = this.db.User.build(params)
-            newUser.save()
-                .then((item) => {
-                    var json = item.toJSON()
-                    json["status"] = true
-                    resolve(json)
-                })
-                .catch((err) => {
-                    console.log(err);
-                    if (err.name == "SequelizeValidationError")
-                        resolve ({ "status": false, "message": "miss_email "})
-                    else
-                        resolve ({ "status": false, "message": "already_exist" })
-                })
-        })
-    }
-
-    login(params) {
-        return new Promise((resolve, reject) => {
-            if (params.hasOwnProperty('password') && params.hasOwnProperty('email')) {
-                this.db.User.findOne({
-                    where: params
+    async login(req, res) {
+        if (tokenController.check(req)) {
+            res.status("403").json({
+                error: true,
+                message: "You are already logged in"
+            })
+        } else {
+            if (req.body.hasOwnProperty('password') && req.body.hasOwnProperty('email')) {
+                const password = req.body.password
+                db.User.findOne({
+                    where: { email: req.body.email }
                 }).then((data) => {
                     if (data) {
-                        var json = data.toJSON()
-                        delete json["password"]
-                        json["status"] = true
-                        resolve(json)
+                        if (bcrypt.compareSync(password, data.password)) {
+                            data.password = "******"
+                            res.status("200").json({
+                                error: false,
+                                user: data,
+                                token: tokenController.sign(data.id)
+                            })
+                        } else {
+                            res.status("403").json({
+                                error: true,
+                                message: "miss email or password"
+                            })
+                        }
+                    } else {
+                        res.status(403).json({error:true, message: "miss email or password."})
                     }
                 }).catch(err => {
                     console.log(err);
-                    resolve({status:false, message: "miss email or password."})
+                    res.status(403).json({error:true, message: "miss email or password."})
                 });
             } else {
-                resolve({status: false, message: "Please specify an email"})
+                res.status(400).json({error: true, message: "No content given"})
             }
-        });
-    }
+        }
+    },
 
-    update(iduser, params) {
-        return new Promise((resolve, reject) => {
-            if (params["isAdmin"])
-                resolve({status:false, message:"Are you serious ? Go fuck another guy bro"})
-            if (params["id"])
-                resolve({status:false, message:"Don't try to do shit with my application blyat"})
-            this.db.User.update(
-                params,
-                {where:{id:iduser}}
-            ).then((rowUpdated) => {
-                var json = {status: (typeof rowUpdated !== undefined)}
-                this.db.User.findOne({id:iduser})
-                    .then((user) => {
-                        json["user"] = user.toJSON()
-                        json["user"]["password"]=null;
-                        resolve(json)
+    async update(req, res) {
+        const {
+            username,
+            firstname,
+            lastname,
+            email,
+            password
+        } = req.body
+        if (tokenController.check(req)) {
+            tokenController.getUser(req)
+                .then((user) => {
+                    db.User.update(
+                        {
+                         username:username, firstname:firstname, lastname:lastname, email:email, password:password
+                        },
+                        {where:{id:user.id}}
+                    ).then((rowUpdated) => {
+                        res.json({
+                            error: false,
+                            data: rowUpdated
+                        })
+                    }).catch(err => {
+                        res.status(500).json({
+                            error: true,
+                            message: err.message
+                        })
                     })
-                    .catch(err => {
-                        console.log(err)
-                        resolve({status:false, message:"An unknown error occured"})
-                    })
-            }).catch(err => {
-                console.log(err)
-                resolve({status: false, message: "Error."})
-            })
-        })
+                }).catch(err => res.status("403").json({error: true, message: err.message}))
+        } else {
+            res.status("403").json({error: true,message: "You must be logged in"})
+        }
     }
-}*/
+}

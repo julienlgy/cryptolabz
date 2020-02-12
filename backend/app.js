@@ -10,11 +10,14 @@ const db = require('./models/index');
 const Logger = require('./middleware/logger').Logger;
 const coinbaseAPI = require('./services/scheduler/coinbase')
 
+var cors = require('cors')
+
 
 // Express Params 
 var app = express();
 app.use(express.json());
 app.use(bodyParser.json())
+app.use(cors({credentials: true, origin: true}))
 app.use(bodyParser.urlencoded({ extended: false })),
 app.use(cookieParser());
 
@@ -47,7 +50,7 @@ app.use(function(err, req, res, next) {
   Logger.log("EXPRESS : An error occured : " + err);
 });
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   app.listen(config.port, config.host, () => {
     console.log(`Cryptolabz server listening on port ${config.port}`);
     Logger.log("Cryptolabz Server started.");
@@ -57,14 +60,3 @@ db.sequelize.sync({ force: false }).then(() => {
 const coinbaseApi = new coinbaseAPI(60)
 coinbaseApi.start();
 module.exports = app;
-
-
-/*db.User.findAll().then(users => {
-  console.log(users);
-})/*
-db.User.create({ email:"test@example.fr", password: "caca", perm_level: 1, username: "Jogny", firstname: "Jane", lastname: "Doe" }).then(jane => {
-  console.log("Jane's auto-generated ID:", jane.id);
-});/*
-User.findAll().then(users => {
-  console.log("All users:", JSON.stringify(users, null, 4));
-});*/

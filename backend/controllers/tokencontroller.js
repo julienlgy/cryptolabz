@@ -5,22 +5,33 @@
  */
 
 const PASSWORD = "SQZEDLPOZ555498_________________pipi"
+const jwt = require('jsonwebtoken')
+const User = require('../models/index').User
 
-class TokenController {
-    constructor() {
-        this.jwt = require('jsonwebtoken')
-    }
+module.exports = {
     check(req) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
             return this.verify(req.headers.authorization.split(' ')[1]);
-    }
-
+        return false
+    },
     sign(params) {
-        return this.jwt.sign(params, PASSWORD)
-    }
+        return jwt.sign(params, PASSWORD)
+    },
     verify(token) {
-        return this.jwt.decode(token, PASSWORD)
+        return jwt.decode(token, PASSWORD)
+    },
+    getUser(req) {
+        return new Promise((resolve, reject) => {
+            var id = this.check(req)
+            if (id) {
+                User.findOne({where: {id: id}}).then((user) => {
+                    resolve(user)
+                }).catch((err) => {
+                    resolve(false)
+                })
+            } else {
+                resolve(false)
+            }
+        })
     }
 }
-
-module.exports = TokenController

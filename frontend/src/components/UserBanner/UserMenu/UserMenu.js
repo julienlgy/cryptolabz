@@ -27,7 +27,8 @@ class UserMenu extends React.Component {
               Settings
             </DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>
+            <DropdownItem
+                onClick={this.props.onEventSignOut}>
               Log out
             </DropdownItem>
           </DropdownMenu>
