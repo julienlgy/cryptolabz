@@ -42,6 +42,7 @@ router.get("/:cmid", cryptoscontroller.web.getCryptoById);
 router.get("/:cmid/history/:period", cryptoscontroller.web.getCryptoHistoById)
 
 router.get("/get/home", cryptoscontroller.web.getHome)
+router.get("/get/all", cryptoscontroller.web.getAll)
 /**
  * POST / CRYPTO
  * 
