@@ -1,19 +1,14 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
 
 class NewCrypto extends Component {
-  constructor(props){
-    super(props);
-  }
-  render(){
+  render() {
     return (
       <div className="NewCrypto">
-    
+        <h1>TEST NEW NewCrypto</h1>
       </div>
-    )
+    );
   }
 }
-NewCrypto.propTypes = {
-}
+NewCrypto.propTypes = {};
 
 export default NewCrypto;
