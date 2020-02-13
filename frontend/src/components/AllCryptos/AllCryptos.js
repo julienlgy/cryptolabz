@@ -53,11 +53,13 @@ class AllCryptos extends React.Component {
           <Col
               xs={{ size: 3}}
               className="list-inline-item align-top"
+              onClick={() => {this.props.onEventVisualizeCrypto(crypto.symbol)}}
               key={index}>
             <img
                 className="icon"
                 alt={"image_" + crypto.symbol}
-                src={crypto.imgUrl} />
+                src={crypto.imgUrl}
+            />
             <div className="label">
               {crypto.symbol + " - " + crypto.name}
             </div>
