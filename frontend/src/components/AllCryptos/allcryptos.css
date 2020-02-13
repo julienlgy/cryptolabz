@@ -1,0 +1,39 @@
+.allcryptos {
+  padding: 2em;
+  background-color: white;
+  width: 100%;
+}
+
+.allcryptos h1 {
+  font-weight: bold;
+  font-size: 150%;
+  text-align: center;
+  padding: 1.5ex 1.5ex;
+}
+
+.allcryptos h2 {
+  width: 100%;
+}
+
+.allcryptos .icon {
+  max-height: 4ex;
+  max-width: 4ex;
+}
+
+.allcryptos .form-control {
+  width: 90%;
+  max-width: 60ex;
+}
+
+.allcryptos .pagination {
+  color: #adadad;
+  margin-top: 2ex;
+  margin-bottom: 2ex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.allcryptos .pagination a {
+  text-decoration: none;
+}
+

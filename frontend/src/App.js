@@ -4,6 +4,7 @@ import React from "react";
 // import Routes from "./routes";
 import AdminCryptos from "./components/AdminCryptos/AdminCryptos";
 import AdminUsers from "./components/AdminUsers/AdminUsers";
+import AllCryptos from "./components/AllCryptos/AllCryptos";
 import Cryptolabz from "./components/Cryptolabz/Cryptolabz";
 import Favorites from "./components/Favorites/Favorites";
 import MyAccount from "./components/MyAccount/MyAccount";
@@ -28,6 +29,12 @@ class App extends React.Component {
   handleEventAdminUsers = () => {
     this.setState({
       display_body: "AdminUsers"
+    });
+  };
+
+  handleEventCryptoAll = () => {
+    this.setState({
+      display_body: "AllCryptos"
     });
   };
 
@@ -75,6 +82,7 @@ class App extends React.Component {
             userAccount={this.state.userAccount}
             onEventAdminCryptos={this.handleEventAdminCryptos}
             onEventAdminUsers={this.handleEventAdminUsers}
+            onEventCryptoAll={this.handleEventCryptoAll}
             onEventHome={this.handleEventHome}
             onEventSignIn={this.handleEventSignIn}
             onEventSignOut={this.handleEventSignOut}
@@ -86,6 +94,7 @@ class App extends React.Component {
           </Router> */}
         {this.state.display_body === "AdminCryptos" && <AdminCryptos />}
         {this.state.display_body === "AdminUsers" && <AdminUsers />}
+        {this.state.display_body === "AllCryptos" && <AllCryptos />}
         {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
         {this.state.display_body === "MyAccount" && <MyAccount
             user={this.state.userAccount}
