@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import React, { Component } from "react";
 import { Col,
-  Collapse,
   Row } from 'reactstrap'
 import ReactTooltip from 'react-tooltip'
 import {
@@ -17,72 +16,54 @@ import { ArgumentScale ,
   EventTracker,
   HoverState } from '@devexpress/dx-react-chart';
   import { scaleTime } from 'd3-scale';
-
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-const generateData = (n) => {
-  const ret = [];
-  let value = 20;
-  const datestamp = new Date(2020, 0, 0);
-  for (let i = 0; i < n; i += 1) {
-    datestamp.setDate(datestamp.getDate() + 1);
-    value += Math.round(Math.random() * 10 - 5);
-    ret.push({ datestamp: new Date(datestamp), value });
-  }
-  return ret;
-};
+  import axios from "axios";
+  import API from "./../../API"
 
 class OneCrypto extends Component {
   constructor(props) {
     super(props)
     console.log("TODO: init Favourites with values from database")
     this.state = {
-      crypto: {
-          name: this.props.cryptoSymbol,
-          isNotCollapsed: true,
-          values: generateData(100),
-          trendOverall: 0,
-          trend48h: 0,
-      },
+      symbol: this.props.symbol,
+      name: '',
+      values: [],
       hoveredDate: null,
       hoveredValue: null,
     }
   }
 
   componentDidMount() {
-    this.calculateTrends()
-  }
+    let that = this
+    axios.all([
+      axios.get(API.url_crypto + this.props.cryptoSymbol, {}, API.getAuthHeaders()),
+      axios.get(API.url_crypto_histo + this.props.cryptoSymbol + API.post_crypto_histo_minute,
+        {}, API.getAuthHeaders()),
+      axios.get(API.url_crypto_histo + this.props.cryptoSymbol + API.post_crypto_histo_hourly,
+        {}, API.getAuthHeaders()),
+      axios.get(API.url_crypto_histo + this.props.cryptoSymbol + API.post_crypto_histo_daily,
+        {}, API.getAuthHeaders())
+    ])
+    .then(axios.spread(function (crypto, minute, hourly, daily) {
+      console.log(crypto)
+      console.log(minute)
+      console.log(hourly)
+      console.log(daily)
+      let values = minute.data.data
+      values.concat(hourly.data.data)
+      values.concat(daily.data.data)
+      for (var index = 0; index < values.length; index++) {
+          values[index].datestamp = new Date(values[index].date)
+      }
 
-  calculateTrends() {
-    let new_crypto = this.state.crypto
-    let values = new_crypto.values
-    // Overall trend
-    new_crypto.trendOverall = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[0].value - 10000)) / 100.
-    new_crypto.trendOverall = values[values.length-1].value < values[0].value ?
-        new_crypto.trendOverall * -1 : new_crypto.trendOverall
-    // Last 48h
-    let index = values.length-1
-    let last_date = values[index].datestamp
-    while (this.dateDiffInDays(values[index].datestamp, last_date) < 2 && index >= 0) {
-      index--;
-    }
-    if (index >=0) {
-      new_crypto.trend48h = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[index].value - 10000)) / 100.
-      new_crypto.trend48h = values[values.length-1].value < values[index].value ?
-          new_crypto.trend48h * -1 : new_crypto.trend48h
-    }
-    // Save result
-    this.setState({
-      crypto: new_crypto
+      console.log(values)
+      that.setState({
+        name: crypto.data.data[0].name,
+        values: values,
+      })
+    }))
+    .catch(error => {
+      console.log(error);
     })
-  }
-
-  dateDiffInDays(a, b) {
-    // Discard the time and time-zone information.
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-  
-    return (utc2 - utc1) / _MS_PER_DAY
   }
 
   handleHoverChange = (target) => {
@@ -94,9 +75,9 @@ class OneCrypto extends Component {
       return
     }
     this.setState({
-      hoveredDate: this.state.crypto.values[target.point].datestamp,
+      hoveredDate: this.state.values[target.point].datestamp,
       hoveredValue: Math.round(
-          this.state.crypto.values[target.point].value * 100) / 100.
+          this.state.values[target.point].price * 100) / 100.
     })
   }
 
@@ -110,23 +91,11 @@ class OneCrypto extends Component {
     </ReactTooltip>)
   }
 
-  renderTrend(value, label) {
-    let classN = "trend-positive"
-    let sign = "+"
-    if (value < 0) {
-      classN = "trend-negative"
-      sign = ""
-    }
-    return(<span className={classN}>
-      {label + " : " + sign + value + "%"}
-    </span>)
-  }
-
   renderGraph() {
     return (
       <Chart 
           className="chart"
-          data={this.state.crypto.values}>
+          data={this.state.values}>
         <ArgumentAxis />
         <ArgumentScale factory={scaleTime} />
         <ValueAxis
@@ -135,8 +104,8 @@ class OneCrypto extends Component {
             position="right" />
 
         <LineSeries
-          name={this.state.crypto.symbol}
-          valueField="value"
+          name={this.state.symbol}
+          valueField="price"
           argumentField="datestamp"
         />
 
@@ -156,7 +125,7 @@ class OneCrypto extends Component {
         {this.state.hoveredValue != null && this.renderHoveredValueInfotip()}
         <Row>
           <Col >
-            <h1>{this.state.crypto.name}</h1>
+            <h1>{this.state.symbol} - {this.state.name}</h1>
           </Col>
         </Row>
         <Row>
