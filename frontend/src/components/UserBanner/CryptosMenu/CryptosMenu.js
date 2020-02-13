@@ -4,12 +4,6 @@ import React from "react";
 import cryptos_icon from "./cryptos_icon.svg";
 import heart_icon from "./heart_icon.svg";
 import graph_icon from "./graph_icon.svg";
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
 
 class CryptosMenu extends React.Component {
   render() {

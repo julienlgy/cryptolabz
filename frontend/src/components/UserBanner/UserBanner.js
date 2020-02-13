@@ -1,6 +1,7 @@
 import "./userbanner.css";
 
 import React from "react";
+import AdminMenu from "./AdminMenu/AdminMenu";
 import CryptosMenu from "./CryptosMenu/CryptosMenu";
 import UserMenu from "./UserMenu/UserMenu";
 import SearchBar from "./SearchBar/SearchBar";
@@ -112,6 +113,10 @@ class UserBanner extends React.Component {
           onEventUserSettings={this.props.onEventUserSettings}
           onEventSignOut={() => this.handleClickSignOut()}
         />
+        { this.state.userAccount.isAdmin && (<AdminMenu
+          onEventAdminUsers={this.props.onEventAdminUsers}
+          onEventAdminCryptos={this.props.onEventAdminCryptos}
+        />)}
         <Button
           type="button"
           color="dark"

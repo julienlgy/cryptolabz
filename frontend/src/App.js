@@ -17,6 +17,26 @@ class App extends React.Component {
     };
   }
 
+  handleEventAdminCryptos = () => {
+    console.log("TODO admin cryptos")
+    this.setState({
+      display_body: "Cryptolabz"
+    });
+  };
+
+  handleEventAdminUsers = () => {
+    console.log("TODO admin users")
+    this.setState({
+      display_body: "Cryptolabz"
+    });
+  };
+
+  handleEventHome = () => {
+    this.setState({
+      display_body: "Cryptolabz"
+    });
+  };
+
   handleEventSignIn = user => {
     this.setState({
       userAccount: user
@@ -30,11 +50,6 @@ class App extends React.Component {
     });
   };
 
-  handleEventHome = () => {
-    this.setState({
-      display_body: "Cryptolabz"
-    });
-  };
   handleEventUserMyAccount = () => {
     this.setState({
       display_body: "MyAccount"
@@ -58,9 +73,11 @@ class App extends React.Component {
       <div className="App">
         <UserBanner
             userAccount={this.state.userAccount}
+            onEventAdminCryptos={this.handleEventAdminCryptos}
+            onEventAdminUsers={this.handleEventAdminUsers}
+            onEventHome={this.handleEventHome}
             onEventSignIn={this.handleEventSignIn}
             onEventSignOut={this.handleEventSignOut}
-            onEventHome={this.handleEventHome}
             onEventUserMyAccount={this.handleEventUserMyAccount}
             onEventUserSettings={this.handleEventUserSettings}
             onEventCryptoFavorites={this.handleEventCryptoFavorites}/>
