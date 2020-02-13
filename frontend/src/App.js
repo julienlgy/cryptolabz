@@ -92,6 +92,7 @@ class App extends React.Component {
             onEventAdminCryptos={this.handleEventAdminCryptos}
             onEventAdminUsers={this.handleEventAdminUsers}
             onEventCryptoAll={this.handleEventCryptoAll}
+            onEventCryptoTrending={this.handleEventHome}
             onEventHome={this.handleEventHome}
             onEventSignIn={this.handleEventSignIn}
             onEventSignOut={this.handleEventSignOut}

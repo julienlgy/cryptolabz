@@ -22,9 +22,8 @@ import { ArgumentScale ,
 class OneCrypto extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init Favourites with values from database")
     this.state = {
-      symbol: this.props.symbol,
+      symbol: this.props.cryptoSymbol,
       name: '',
       values: [],
       hoveredDate: null,
@@ -44,18 +43,13 @@ class OneCrypto extends Component {
         {}, API.getAuthHeaders())
     ])
     .then(axios.spread(function (crypto, minute, hourly, daily) {
-      console.log(crypto)
-      console.log(minute)
-      console.log(hourly)
-      console.log(daily)
       let values = minute.data.data
       values.concat(hourly.data.data)
       values.concat(daily.data.data)
       for (var index = 0; index < values.length; index++) {
-          values[index].datestamp = new Date(values[index].date)
+        values[index].datestamp = new Date(values[index].date)
       }
 
-      console.log(values)
       that.setState({
         name: crypto.data.data[0].name,
         values: values,
