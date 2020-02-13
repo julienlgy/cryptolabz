@@ -7,6 +7,22 @@ const db = require('../models/index')
 const bcrypt = require('bcryptjs')
 const tokenController = require('./tokencontroller')
 module.exports = {
+  internal: {
+    createAdmin() {
+        db.User.create({
+            username: "admin",
+            firstname: "admin",
+            lastname: "admin",
+            email: "admin@cryptoalbz.com",
+            password: bcrypt.hashSync("admin", 10),
+            isAdmin: true
+        }).then((data)=>{
+            console.log("User admin created with [admin@cryptolabz.com][admin]")
+        }).catch((err)=>{
+            console.log("Retrieved admin user")
+        })
+    }
+  },
   async create(req, res) {
       if (tokenController.check(req)) {
           res.status(403).json({

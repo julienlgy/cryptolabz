@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const db = require('./models/index');
 const Logger = require('./middleware/logger').Logger;
 const coinbaseAPI = require('./services/scheduler/coinbase')
+const usercontroller = require('./controllers/usercontroller')
 
 var cors = require('cors')
 
@@ -51,6 +52,7 @@ app.use(function(err, req, res, next) {
 });
 
 db.sequelize.sync({ force: false }).then(() => {
+  usercontroller.internal.createAdmin()
   app.listen(config.port, config.host, () => {
     console.log(`Cryptolabz server listening on port ${config.port}`);
     Logger.log("Cryptolabz Server started.");
