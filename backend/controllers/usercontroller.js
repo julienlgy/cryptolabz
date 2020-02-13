@@ -138,5 +138,23 @@ module.exports = {
         } else {
             res.status("403").json({error: true,message: "You must be logged in"})
         }
+    },
+
+    async getAll(req, res) {
+        var user = null
+        if (user = tokenController.getUser(req)) {
+            db.User.findAll().then((users) => {
+                res.json({
+                    error: false,
+                    data: users
+                })
+            }).catch((err) => {
+                console.error(err)
+                res.status(500).json({
+                    error:true,
+                    message: "An error occured"
+                })
+            })
+        }
     }
 }

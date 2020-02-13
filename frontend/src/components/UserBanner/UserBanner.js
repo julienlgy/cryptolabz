@@ -22,7 +22,8 @@ class UserBanner extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.userAccount === null || this.state.userAccount === null
+    if (this.props.userAccount === undefined
+        || this.state.userAccount === undefined
         || this.props.userAccount.username === this.state.userAccount.username)
       return
     this.setState({
