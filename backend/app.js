@@ -14,7 +14,7 @@ const usercontroller = require('./controllers/usercontroller')
 var cors = require('cors')
 
 
-// Express Params 
+// Express Params
 var app = express();
 app.use(express.json());
 app.use(bodyParser.json())
