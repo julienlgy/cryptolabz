@@ -81,7 +81,8 @@ class MyAccount extends Component {
   }
 
   handleChangeOldPassword = (e) => {
-    console.log("TODO check password " + e.target.value); //TODO check with back
+    console.log("TODO check password " + e.target.value
+        + ". For now, expecting \"TODO\""); //TODO check with back
     if (e.target.value === "TODO") {
       this.setState({
         oldPasswordOk: true

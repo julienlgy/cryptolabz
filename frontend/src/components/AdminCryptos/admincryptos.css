@@ -1,0 +1,27 @@
+.admincryptos {
+  padding: 2em;
+  background-color: white;
+  width: 100%;
+}
+
+.admincryptos h1 {
+  font-weight: bold;
+  font-size: 150%;
+  text-align: center;
+  padding: 1.5ex 1.5ex;
+}
+
+.admincryptos h2 {
+  width: 100%;
+}
+
+.admincryptos .icon {
+  max-height: 4ex;
+  max-width: 4ex;
+}
+
+.admincryptos .form-control {
+  width: 90%;
+  max-width: 60ex;
+}
+

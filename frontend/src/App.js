@@ -2,11 +2,12 @@ import React from "react";
 // import { Router } from "react-router-dom";
 // import history from "./services/history";
 // import Routes from "./routes";
+import AdminCryptos from "./components/AdminCryptos/AdminCryptos";
 import Cryptolabz from "./components/Cryptolabz/Cryptolabz";
-import UserBanner from "./components/UserBanner/UserBanner";
+import Favorites from "./components/Favorites/Favorites";
 import MyAccount from "./components/MyAccount/MyAccount";
 import Settings from "./components/Settings/Settings";
-import Favorites from "./components/Favorites/Favorites";
+import UserBanner from "./components/UserBanner/UserBanner";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,9 +19,8 @@ class App extends React.Component {
   }
 
   handleEventAdminCryptos = () => {
-    console.log("TODO admin cryptos")
     this.setState({
-      display_body: "Cryptolabz"
+      display_body: "AdminCryptos"
     });
   };
 
@@ -84,6 +84,7 @@ class App extends React.Component {
           {/* <Router history={history}>
             <Routes />
           </Router> */}
+        {this.state.display_body === "AdminCryptos" && <AdminCryptos />}
         {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
         {this.state.display_body === "MyAccount" && <MyAccount
             user={this.state.userAccount}
