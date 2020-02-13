@@ -1,6 +1,7 @@
 import "./userbanner.css";
 
 import React from "react";
+import AdminMenu from "./AdminMenu/AdminMenu";
 import CryptosMenu from "./CryptosMenu/CryptosMenu";
 import UserMenu from "./UserMenu/UserMenu";
 import SearchBar from "./SearchBar/SearchBar";
@@ -16,8 +17,17 @@ class UserBanner extends React.Component {
     this.state = {
       display_overlay: "",
       isAuthentified: false,
-      userAccount: null
+      userAccount: this.props.userAccount
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userAccount === null || this.state.userAccount === null
+        || this.props.userAccount.username === this.state.userAccount.username)
+      return
+    this.setState({
+      userAccount: this.props.userAccount
+    })
   }
 
   handleCancel = () => {
@@ -62,39 +72,59 @@ class UserBanner extends React.Component {
     console.log("todo: do search " + search_string);
   };
 
-  renderSignIn() {
+  renderNotAuthentified() {
     return (
-      <Button
-        type="button"
-        color="dark"
-        onClick={() => this.handleClickSignIn()}
-      >
-        Sign in
-      </Button>
+      <Nav>
+        <Button
+          type="button"
+          color="dark"
+          onClick={() => this.handleClickSignIn()}
+        >
+          Sign in
+        </Button>
+        <Button
+          type="button"
+          color="dark"
+          onClick={() => this.handleClickSignUp()}
+        >
+          Sign up
+        </Button>
+      </Nav>
     );
   }
 
-  renderSignUp() {
+  renderAuthentified() {
     return (
-      <Button
-        type="button"
-        color="dark"
-        onClick={() => this.handleClickSignUp()}
-      >
-        Sign up
-      </Button>
-    );
-  }
-
-  renderSignOut() {
-    return (
-      <Button
-        type="button"
-        color="dark"
-        onClick={() => this.handleClickSignOut()}
-      >
-        Sign out
-      </Button>
+      <Nav>
+        <p className="welcome">
+          Bienvenue {this.state.userAccount.username}
+        </p>
+        <SearchBar
+          onUpdateSearch={this.handleUpdateSearch}
+          onDoSearch={this.handleDoSearch}
+        />
+        <CryptosMenu
+          onEventCryptoAll={this.props.onEventCryptoAll}
+          onEventCryptoFavorites={this.props.onEventCryptoFavorites}
+          onEventCryptoTrending={this.props.onEventCryptoTrending}
+        />
+        <UserMenu
+          onEventUserMyAccount={this.props.onEventUserMyAccount}
+          onEventUserSettings={this.props.onEventUserSettings}
+          onEventSignOut={() => this.handleClickSignOut()}
+        />
+        { this.state.userAccount.isAdmin && (<AdminMenu
+          onEventAdminUsers={this.props.onEventAdminUsers}
+          onEventAdminCryptos={this.props.onEventAdminCryptos}
+        />)}
+        <Button
+          type="button"
+          color="dark"
+          onClick={() => this.handleClickSignOut()}
+        >
+          Sign out
+        </Button>
+      </Nav>
     );
   }
 
@@ -123,30 +153,8 @@ class UserBanner extends React.Component {
             <span className="cryptolabz">Cryptolabz</span>
           </a>
 
-          <Nav>
-            {!this.state.isAuthentified && this.renderSignIn()}
-            {!this.state.isAuthentified && this.renderSignUp()}
-
-            {this.state.isAuthentified && (
-              <SearchBar
-                onUpdateSearch={this.handleUpdateSearch}
-                onDoSearch={this.handleDoSearch}
-              />
-            )}
-            {this.state.isAuthentified && (
-              <CryptosMenu
-                onEventCryptoFavorites={this.props.onEventCryptoFavorites}
-              />
-            )}
-            {this.state.isAuthentified && (
-              <UserMenu
-                onEventUserMyAccount={this.props.onEventUserMyAccount}
-                onEventUserSettings={this.props.onEventUserSettings}
-                onEventSignOut={() => this.handleClickSignOut()}
-              />
-            )}
-            {this.state.isAuthentified && this.renderSignOut()}
-          </Nav>
+          {!this.state.isAuthentified && this.renderNotAuthentified()}
+          {this.state.isAuthentified && this.renderAuthentified()}
         </Navbar>
         <div className="navbar-size"></div>
       </div>

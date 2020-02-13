@@ -1,3 +1,10 @@
+.cryptosmenu {
+  margin: auto;
+}
+
 .cryptosmenu .icon {
   height: 3ex;
+  padding-left: .75ex;
+  padding-right: .75ex;
+  margin: auto;
 }
