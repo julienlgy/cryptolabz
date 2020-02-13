@@ -16,13 +16,24 @@
 }
 
 .allcryptos .icon {
-  max-height: 4ex;
-  max-width: 4ex;
+  max-height: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
 }
 
-.allcryptos .form-control {
-  width: 90%;
-  max-width: 60ex;
+.allcryptos .label {
+  margin-bottom: 3.5ex;
+  margin-top: 1ex;
+  max-height: 3ex;
+  overflow: hidden;
+  font-weight: bold;
+  text-align:center;
+}
+
+.allcryptos .list-inline-item,
+.allcryptos .list-inline-item:not(:last-child) {
+  margin: 0;
 }
 
 .allcryptos .pagination {
