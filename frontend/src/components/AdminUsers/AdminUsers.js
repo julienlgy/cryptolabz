@@ -70,13 +70,6 @@ class AdminUsers extends React.Component {
       });
     }
 
-    renderIcon(isAdmin) {
-      return(<div>
-        {isAdmin && (<span>Admin</span>)}
-        {!isAdmin && (<span>nope</span>)}
-      </div>)
-    }
-
     render() {
       return (
       <div className="adminusers">

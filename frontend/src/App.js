@@ -46,7 +46,7 @@ class App extends React.Component {
   handleEventSignOut = user => {
     this.setState({
       display_body: "Cryptolabz",
-      userAccount: null
+      userAccount: undefined
     });
   };
 
