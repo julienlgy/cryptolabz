@@ -13,4 +13,11 @@ router.post("/login", UserController.login)
 
 router.put("/update", UserController.update)
 
+/**
+ * GET / USERS
+ * 
+ * User MUST be logged in as well as the ADMINISTRATOR. Get all users
+ */
+router.get("/get/all", UserController.getAll)
+
 module.exports = router;

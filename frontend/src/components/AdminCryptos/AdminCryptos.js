@@ -72,7 +72,7 @@ class Cryptolabz extends React.Component {
     render() {
       return (
       <div className="admincryptos">
-        <h1>Admin cryptocurrencies</h1>
+        <h1>Admin Cryptocurrencies</h1>
         <ListGroup>
           {this.state.cryptosToDisplay.map((crypto,index) =>
           <ListGroupItem

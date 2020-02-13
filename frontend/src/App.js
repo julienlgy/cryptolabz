@@ -3,6 +3,7 @@ import React from "react";
 // import history from "./services/history";
 // import Routes from "./routes";
 import AdminCryptos from "./components/AdminCryptos/AdminCryptos";
+import AdminUsers from "./components/AdminUsers/AdminUsers";
 import Cryptolabz from "./components/Cryptolabz/Cryptolabz";
 import Favorites from "./components/Favorites/Favorites";
 import MyAccount from "./components/MyAccount/MyAccount";
@@ -25,9 +26,8 @@ class App extends React.Component {
   };
 
   handleEventAdminUsers = () => {
-    console.log("TODO admin users")
     this.setState({
-      display_body: "Cryptolabz"
+      display_body: "AdminUsers"
     });
   };
 
@@ -85,6 +85,7 @@ class App extends React.Component {
             <Routes />
           </Router> */}
         {this.state.display_body === "AdminCryptos" && <AdminCryptos />}
+        {this.state.display_body === "AdminUsers" && <AdminUsers />}
         {this.state.display_body === "Cryptolabz" && <Cryptolabz />}
         {this.state.display_body === "MyAccount" && <MyAccount
             user={this.state.userAccount}

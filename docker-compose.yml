@@ -13,6 +13,7 @@ services:
       - '8000'
     depends_on:
       - db
+
   front:
     container_name: cryptolabzfront
     build: frontend
