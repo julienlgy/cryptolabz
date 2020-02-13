@@ -25,3 +25,15 @@
   max-width: 60ex;
 }
 
+.admincryptos .pagination {
+  color: #adadad;
+  margin-top: 2ex;
+  margin-bottom: 2ex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admincryptos .pagination a {
+  text-decoration: none;
+}
+

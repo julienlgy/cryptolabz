@@ -2,6 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./admincryptos.css";
 
+import Pagination from "react-js-pagination";
 import { Button,
   Col,
   Container,
@@ -17,6 +18,9 @@ class Cryptolabz extends React.Component {
       super(props);
       this.state = {
         cryptos: [],
+        cryptosToDisplay: [],
+        numberCryptosPerPage: 10,
+        numberPage: 1,
       }
     }
 
@@ -27,9 +31,12 @@ class Cryptolabz extends React.Component {
     updateCryptos() {
       axios.get(API.url_crypto_all)
       .then(response => {
-        console.log(response.data.data)
+        let toDisplay = response.data.data.slice(
+            (this.state.numberPage - 1) * this.state.numberCryptosPerPage,
+            this.state.numberPage * this.state.numberCryptosPerPage)
         this.setState({ 
-          cryptos: response.data.data
+          cryptos: response.data.data,
+          cryptosToDisplay: toDisplay
         });
       })
       .catch(error => {
@@ -52,12 +59,22 @@ class Cryptolabz extends React.Component {
       });
     }
 
+    handlePageChange = (pageNumber) => {
+      let toDisplay = this.state.cryptos.slice(
+          (pageNumber - 1) * this.state.numberCryptosPerPage,
+          pageNumber * this.state.numberCryptosPerPage)
+      this.setState({
+        cryptosToDisplay: toDisplay,
+        numberPage: pageNumber
+      });
+    }
+
     render() {
       return (
       <div className="admincryptos">
         <h1>Admin cryptocurrencies</h1>
         <ListGroup>
-          {this.state.cryptos.map((crypto,index) =>
+          {this.state.cryptosToDisplay.map((crypto,index) =>
           <ListGroupItem
               key={index}>
             <Container>
@@ -67,6 +84,7 @@ class Cryptolabz extends React.Component {
                     md={{ size: 2}}>
                   <img
                       className="icon"
+                      alt={"image_" + crypto.symbol}
                       src={crypto.imgUrl} />
                 </Col>
                 <Col
@@ -92,6 +110,16 @@ class Cryptolabz extends React.Component {
           </ListGroupItem>
           )}
         </ListGroup>
+        <Pagination
+          activePage={this.state.numberPage}
+          itemsCountPerPage={this.state.numberCryptosPerPage}
+          totalItemsCount={this.state.cryptos.length}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange}
+          innerClass="pagination justify-content-center"
+          itemClass="page-item"
+          linkClass="page-link"
+        />
       </div>
     );
   }
