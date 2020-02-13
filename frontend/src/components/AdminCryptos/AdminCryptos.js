@@ -13,7 +13,7 @@ import { Button,
 import axios from "axios";
 import API from "./../../API"
 
-class Cryptolabz extends React.Component {
+class AdminCryptos extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -125,4 +125,4 @@ class Cryptolabz extends React.Component {
   }
 }
 
-export default Cryptolabz;
+export default AdminCryptos;

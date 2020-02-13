@@ -39,7 +39,7 @@ router.get("/:cmid", cryptoscontroller.web.getCryptoById);
  * -> hourly: 48 last hours, so 48 periods of one hour
  * -> minute: last 2 hours, so 60 periods of one minute
  */
-router.get("/:cmid/history/:period", cryptoscontroller.web.getCryptoHistoById)
+router.get("/history/:cmid/:period", cryptoscontroller.web.getCryptoHistoById)
 
 router.get("/get/home", cryptoscontroller.web.getHome)
 router.get("/get/all", cryptoscontroller.web.getAll)
