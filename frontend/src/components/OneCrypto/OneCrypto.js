@@ -25,9 +25,16 @@ class OneCrypto extends Component {
     this.state = {
       symbol: this.props.cryptoSymbol,
       name: '',
+      imgUrl: '',
       values: [],
       hoveredDate: null,
       hoveredValue: null,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.cryptoSymbol !== this.props.cryptoSymbol) {
+      this.componentDidMount()
     }
   }
 
@@ -51,7 +58,9 @@ class OneCrypto extends Component {
       }
 
       that.setState({
+        symbol: crypto.data.data[0].symbol,
         name: crypto.data.data[0].name,
+        imgUrl: crypto.data.data[0].imgUrl,
         values: values,
       })
     }))
@@ -118,13 +127,22 @@ class OneCrypto extends Component {
       <div className="onecrypto" data-tip="data tip">
         {this.state.hoveredValue != null && this.renderHoveredValueInfotip()}
         <Row>
-          <Col >
+          <Col>
             <h1>{this.state.symbol} - {this.state.name}</h1>
           </Col>
         </Row>
         <Row>
+          <Col>
+            <img
+                className="image"
+                alt={"image_" + this.state.symbol}
+                src={this.state.imgUrl}
+            />
+          </Col>
+        </Row>
+        <Row>
           <Col
-              xs={{ size: 12 }}>
+              xs={{ size: 10, offset: 1 }}>
             {this.renderGraph()}
           </Col>
         </Row>

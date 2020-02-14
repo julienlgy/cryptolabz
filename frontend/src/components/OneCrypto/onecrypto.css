@@ -1,32 +1,35 @@
-.cryptoSymbol {
+.onecrypto {
   color: #292929;
 }
 
-.cryptoSymbol .chart {
-  max-height: 20ex;
-}
-
-.cryptoSymbol text {
+.onecrypto text {
   fill: #292929;
 }
 
-.cryptoSymbol .chart #center-axis-container path {
+.onecrypto .image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4ex;
+}
+
+.onecrypto .chart #center-axis-container path {
   stroke: #42a5f5;
 }
 
-.cryptoSymbol .chart #center-axis-container path.Component-root-4 {
+.onecrypto .chart #center-axis-container path.Component-root-4 {
   stroke: rgb(224, 224, 224);
 }
 
-.cryptoSymbol .chart {
+.onecrypto .chart {
   padding: 10px 5px 10px 5px;
   border-radius: 10px;
 }
 
-.cryptoSymbol .trend-positive {
+.onecrypto .trend-positive {
   color: #129912;
 }
 
-.cryptoSymbol .trend-negative {
+.onecrypto .trend-negative {
   color: #882222;
 }

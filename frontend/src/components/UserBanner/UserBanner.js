@@ -101,8 +101,7 @@ class UserBanner extends React.Component {
           Bienvenue {this.state.userAccount.username}
         </p>
         <SearchBar
-          onUpdateSearch={this.handleUpdateSearch}
-          onDoSearch={this.handleDoSearch}
+          onEventVisualizeCrypto={this.props.onEventVisualizeCrypto}
         />
         <CryptosMenu
           onEventCryptoAll={this.props.onEventCryptoAll}

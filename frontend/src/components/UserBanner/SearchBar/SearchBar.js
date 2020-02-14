@@ -1,9 +1,7 @@
 import './searchbar.css'
 
 import React from 'react';
-import icon from './search_icon.svg'
-import { Button,
-  NavItem,
+import { NavItem,
   NavLink } from 'reactstrap'
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -53,14 +51,11 @@ class SearchBar extends React.Component {
       this.updateSuggestions(e.target.value.toUpperCase())
     }
     else if (e.target.firstChild !== undefined
-        && e.target.firstChild !== null) {
-      console.log("selected")
-      console.log(e.target.firstChild)
+        && e.target.firstChild !== null
+        && e.target.firstChild.data !== undefined) {
+      let cryptoSymbol = e.target.firstChild.data.split("\t")[0]
+      this.props.onEventVisualizeCrypto(cryptoSymbol)
     }
-  }
-
-  handleSearch() {
-    this.props.onDoSearch(this.state.search)
   }
 
   render() {
@@ -71,7 +66,7 @@ class SearchBar extends React.Component {
             id="search_suggestions"
             onInputChange={this.handleChangeText.bind(this)}
             options={this.state.suggestions}
-            getOptionLabel={option => option.symbol + " " + option.name}
+            getOptionLabel={option => option.symbol + "\t" + option.name}
             renderInput={params => (
               <TextField
                   {...params}
