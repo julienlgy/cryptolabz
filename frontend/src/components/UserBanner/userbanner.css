@@ -28,7 +28,19 @@
   height: 6ex;
 }
 
-.userbanner .cryptolabz {
+.userbanner .adminmenu,
+.userbanner .cryptosmenu,
+.userbanner .usermenu {
+  margin: auto;
+}
+
+.userbanner .searchbar {
+  margin: auto;
+  margin-left: 2ex;
+  margin-right: 2ex;
+}
+
+  .userbanner .cryptolabz {
   font-size: 150%;
   font-weight: bold;
 }

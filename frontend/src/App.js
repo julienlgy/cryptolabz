@@ -92,13 +92,14 @@ class App extends React.Component {
             onEventAdminCryptos={this.handleEventAdminCryptos}
             onEventAdminUsers={this.handleEventAdminUsers}
             onEventCryptoAll={this.handleEventCryptoAll}
+            onEventCryptoFavorites={this.handleEventCryptoFavorites}
             onEventCryptoTrending={this.handleEventHome}
             onEventHome={this.handleEventHome}
             onEventSignIn={this.handleEventSignIn}
             onEventSignOut={this.handleEventSignOut}
             onEventUserMyAccount={this.handleEventUserMyAccount}
             onEventUserSettings={this.handleEventUserSettings}
-            onEventCryptoFavorites={this.handleEventCryptoFavorites}/>
+            onEventVisualizeCrypto={this.handleEventVisualizeCrypto}/>
           {/* <Router history={history}>
             <Routes />
           </Router> */}
