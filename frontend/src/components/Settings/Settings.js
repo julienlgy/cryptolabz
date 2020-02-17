@@ -7,19 +7,26 @@ import { Col,
   Button,
   Row } from 'reactstrap'
 
+import axios from "axios";
+import API from "./../../API"
+
 class Settings extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init Settings with values from database")
+    
+    let favorites = []
+    for (var index = 0;
+        index < this.props.user.favorites.length;
+        index++) {
+      favorites.push({
+        symbol: this.props.user.favorites[index].symbol,
+        name: this.props.user.favorites[index].symbol + " " + this.props.user.favorites[index].name,
+        favorite: true
+      })
+    }
+
     this.state = {
-      favorites: [
-        { name: 'bitcoin', favorite: true },
-        { name: 'coincoin', favorite: false },
-        { name: 'megacoin', favorite: true },
-        { name: 'coin romantique', favorite: false },
-        { name: 'aucoin', favorite: true },
-        { name: 'supercoin', favorite: false }
-      ],
+      favorites: favorites,
       tags: [
         'news',
         'bitecoin',
@@ -27,6 +34,34 @@ class Settings extends Component {
       ],
       addingTag: false
     }
+  }
+
+  componentDidMount() {
+    axios.get(API.url_crypto_all)
+    .then(response => {
+      let new_favorites = this.state.favorites.slice()
+
+      for (var index = 0;
+          index < response.data.data.length;
+          index++) {
+        if (!this.state.favorites.some(item => item.symbol === response.data.data[index].symbol)) {
+          new_favorites.push({
+            symbol: response.data.data[index].symbol,
+            name: response.data.data[index].name,
+            favorite: false
+          })
+        }
+      }
+
+      new_favorites.sort(function(a, b) {
+        return a.symbol > b.symbol ? 1 : -1;
+      });
+
+      this.setState({ favorites: new_favorites })
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   handleChangeFavorite = (index) => {
