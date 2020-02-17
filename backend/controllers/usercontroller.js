@@ -68,7 +68,14 @@ module.exports = {
             if (req.body.hasOwnProperty('password') && req.body.hasOwnProperty('email')) {
                 const password = req.body.password
                 db.User.findOne({
-                    where: { email: req.body.email }
+                    where: { email: req.body.email},
+                    include: [
+                        {
+                            model: db.Crypto,
+                            as: 'favorites',
+                            attributes: ['symbol', 'name']
+                        }
+                    ]
                 }).then((data) => {
                     if (data) {
                         if (bcrypt.compareSync(password, data.password)) {
@@ -143,7 +150,15 @@ module.exports = {
     async getAll(req, res) {
         var user = null
         if (user = tokenController.getUser(req)) {
-            db.User.findAll().then((users) => {
+            db.User.findAll({
+                include: [
+                    {
+                        model: db.Crypto,
+                        as: 'favorites',
+                        attributes: ['symbol', 'name']
+                    }
+                ]
+            }).then((users) => {
                 res.json({
                     error: false,
                     data: users

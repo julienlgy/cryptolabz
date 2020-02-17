@@ -14,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT
   }, {});
   Crypto.associate = function(models) {
-    // associations can be defined here
+    Crypto.belongsToMany(models.User, {
+      through: 'Favorites',
+      as: 'users',
+      foreignKey: 'cryptoId',
+      otherKey: 'userId'
+    });
   };
   return Crypto;
 };
