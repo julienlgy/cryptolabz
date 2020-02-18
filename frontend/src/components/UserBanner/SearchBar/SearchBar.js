@@ -13,14 +13,20 @@ class SearchBar extends React.Component {
     super(props)
     this.state = {
       cryptos: [],
+      isPublic: this.props.isPublic,
       search: '',
       suggestions: []
     }
   }
 
   componentDidMount() {
-    axios.get(API.url_crypto_all)
+    const url_cryptos_all = this.state.isPublic ?
+        API.url_crypto_public :
+        API.url_crypto_all
+    console.log(url_cryptos_all)
+    axios.get(url_cryptos_all)
     .then(response => {
+      console.log(response.data.data)
       this.setState({ 
         cryptos: response.data.data,
       });

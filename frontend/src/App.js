@@ -1,7 +1,4 @@
 import React from "react";
-// import { Router } from "react-router-dom";
-// import history from "./services/history";
-// import Routes from "./routes";
 import AdminCryptos from "./components/AdminCryptos/AdminCryptos";
 import AdminUsers from "./components/AdminUsers/AdminUsers";
 import AllCryptos from "./components/AllCryptos/AllCryptos";
@@ -18,7 +15,7 @@ class App extends React.Component {
     this.state = {
       cryptoSymbol: "",
       displayBody: "Cryptolabz",
-      userAccount: {}
+      userAccount: undefined
     };
   }
 
@@ -54,7 +51,8 @@ class App extends React.Component {
 
   handleEventSignIn = user => {
     this.setState({
-      userAccount: user
+      userAccount: user,
+      displayBody: "Favorites"
     });
   };
 
@@ -100,12 +98,10 @@ class App extends React.Component {
             onEventUserMyAccount={this.handleEventUserMyAccount}
             onEventUserSettings={this.handleEventUserSettings}
             onEventVisualizeCrypto={this.handleEventVisualizeCrypto}/>
-          {/* <Router history={history}>
-            <Routes />
-          </Router> */}
         {this.state.displayBody === "AdminCryptos" && <AdminCryptos />}
         {this.state.displayBody === "AdminUsers" && <AdminUsers />}
         {this.state.displayBody === "AllCryptos" && <AllCryptos
+            isPublic={this.state.userAccount === undefined || this.state.userAccount === null}
             onEventVisualizeCrypto={this.handleEventVisualizeCrypto} />}
         {this.state.displayBody === "Cryptolabz" && <Cryptolabz />}
         {this.state.displayBody === "MyAccount" && <MyAccount

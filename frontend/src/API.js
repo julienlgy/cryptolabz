@@ -1,5 +1,6 @@
 const BASE_URL = "http://localhost:8000"
 const ROUTE_CRYPTO_ALL = "/cryptos/get/all"
+const ROUTE_CRYPTO_PUBLIC = "/cryptos/get/public"
 const ROUTE_CRYPTO_HISTO = "/cryptos/history/"
 const ROUTE_CRYPTO_HISTO_DAILY = "/daily"
 const ROUTE_CRYPTO_HISTO_HOURLY = "/hourly"
@@ -23,6 +24,7 @@ class API {
   url_user_update = BASE_URL + ROUTE_USER_UPDATE;
 
   url_crypto_all = BASE_URL + ROUTE_CRYPTO_ALL;
+  url_crypto_public = BASE_URL + ROUTE_CRYPTO_PUBLIC;
   url_crypto_delete = BASE_URL + ROUTE_CRYPTO_DELETE;
   url_crypto_home = BASE_URL + ROUTE_HOMEPAGE;
   url_crypto = BASE_URL + ROUTE_CRYPTO_ID;

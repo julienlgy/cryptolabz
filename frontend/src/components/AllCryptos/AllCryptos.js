@@ -10,16 +10,21 @@ import API from "./../../API"
 class AllCryptos extends React.Component {
     constructor(props) {
       super(props);
+      console.log(this.props.isPublic)
       this.state = {
         cryptos: [],
         cryptosToDisplay: [],
+        isPublic: this.props.isPublic,
         numberCryptosPerPage: 15,
         numberPage: 1,
       }
     }
 
     componentDidMount() {
-      axios.get(API.url_crypto_all)
+      const url_cryptos_all = this.state.isPublic ?
+          API.url_crypto_public :
+          API.url_crypto_all
+      axios.get(url_cryptos_all)
       .then(response => {
         let toDisplay = response.data.data.slice(
             (this.state.numberPage - 1) * this.state.numberCryptosPerPage,

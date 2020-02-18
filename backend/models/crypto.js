@@ -16,7 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     imgUrl: DataTypes.STRING,
     rank: DataTypes.INTEGER,
     marketCap: DataTypes.FLOAT,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
+    isPublic: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
   }, {});
   Crypto.associate = function(models) {
     Crypto.belongsToMany(models.User, {
