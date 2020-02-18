@@ -114,7 +114,8 @@ class App extends React.Component {
         {this.state.displayBody === "OneCrypto" && <OneCrypto
             cryptoSymbol={this.state.cryptoSymbol} />}
         {this.state.displayBody === "Settings" && <Settings
-            user={this.state.userAccount}/>}
+            user={this.state.userAccount}
+            onEventUpdate={this.handleEventSignIn}/>}
         {this.state.displayBody === "Favorites" && <Favorites
             user={this.state.userAccount}/>}
       </div>

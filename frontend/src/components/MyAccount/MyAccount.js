@@ -51,13 +51,14 @@ class MyAccount extends Component {
         lastname: this.state.lastName
       }
       axios.put(API.url_user_update, body_update, API.getAuthHeaders())
-      .then(response => {
+      .then(() => {
         this.props.onEventUpdate({
           email: this.state.email,
           username: this.state.username,
           firstname: this.state.firstName,
           lastname: this.state.lastName,
-          password: this.state.user.password
+          password: this.state.user.password,
+          favorites: this.state.user.favorites
         })
         this.setState({
           updateFailMessage: '',

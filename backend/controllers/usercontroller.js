@@ -73,7 +73,7 @@ module.exports = {
                         {
                             model: db.Crypto,
                             as: 'favorites',
-                            attributes: ['symbol', 'name']
+                            attributes: ['id', 'symbol', 'name']
                         }
                     ]
                 }).then((data) => {
@@ -147,6 +147,45 @@ module.exports = {
         }
     },
 
+    async updateFavorites(req, res) {
+        const {
+            favorites
+        } = req.body
+        if (tokenController.check(req)) {
+            tokenController.getUser(req)
+                .then((user) => {
+                    console.log("newFavorites")
+                    let newFavorites = []
+                    favorites.forEach(function(element, index) {
+                        if (element.favorite) {
+                            console.log("N°" + index)
+                            console.log(element)
+                            newFavorites.push(element.id)
+                            console.log("ADDED")
+                        }
+                    })
+                    console.log("newFavorites")
+                    console.log(newFavorites)
+                    user.setFavorites(newFavorites)
+                    user.save()
+                    .then((rowUpdated) => {
+                        res.json({
+                            error: false,
+                            data: rowUpdated
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                        res.status(500).json({
+                            error: true,
+                            message: err.message
+                        })
+                    })
+                }).catch(err => res.status("403").json({error: true, message: err.message}))
+        } else {
+            res.status("403").json({error: true,message: "You must be logged in"})
+        }
+    },
+
     async getAll(req, res) {
         var user = null
         if (user = tokenController.getUser(req)) {
@@ -155,7 +194,7 @@ module.exports = {
                     {
                         model: db.Crypto,
                         as: 'favorites',
-                        attributes: ['symbol', 'name']
+                        attributes: ['id', 'symbol', 'name']
                     }
                 ]
             }).then((users) => {

@@ -5,7 +5,8 @@ import AddTag from './AddTag/AddTag';
 import React, { Component } from "react";
 import { Col,
   Button,
-  Row } from 'reactstrap'
+  Row,
+  Tooltip } from 'reactstrap'
 
 import axios from "axios";
 import API from "./../../API"
@@ -19,6 +20,7 @@ class Settings extends Component {
         index < this.props.user.favorites.length;
         index++) {
       favorites.push({
+        id: this.props.user.favorites[index].id,
         symbol: this.props.user.favorites[index].symbol,
         name: this.props.user.favorites[index].symbol + " " + this.props.user.favorites[index].name,
         favorite: true
@@ -26,13 +28,16 @@ class Settings extends Component {
     }
 
     this.state = {
+      user: this.props.user,
       favorites: favorites,
       tags: [
         'news',
         'bitecoin',
         'mining'
       ],
-      addingTag: false
+      addingTag: false,
+      updateFavsFailMessage: '',
+      updateFavsOkMessage: '',
     }
   }
 
@@ -45,6 +50,7 @@ class Settings extends Component {
       response.data.data.forEach(function(element) {
         if (!that.state.favorites.some(item => item.symbol === element.symbol)) {
           new_favorites.push({
+            id: element.id,
             symbol: element.symbol,
             name: element.name,
             favorite: false
@@ -55,7 +61,6 @@ class Settings extends Component {
       new_favorites.sort(function(a, b) {
         return a.symbol > b.symbol ? 1 : -1;
       });
-
       that.setState({ favorites: new_favorites })
     })
     .catch(error => {
@@ -100,7 +105,30 @@ class Settings extends Component {
   }
 
   handleUpdateFavorites() {
-    console.log("TODO update favorites")
+    const that = this
+    let new_favorites = []
+    this.state.favorites.forEach(function (element) {
+      if (element.favorite) {
+        new_favorites.push(element)
+      }
+    })
+    let body_update = {
+      favorites: new_favorites,
+    }
+    axios.put(API.url_favorites, body_update, API.getAuthHeaders())
+    .then(() => {
+      let new_user = this.state.user
+      new_user.favorites = new_favorites
+      that.props.onEventUpdate(new_user)
+      that.setState({
+        updateFavsOkMessage: 'Updated successfully'
+      })
+    })
+    .catch(error => {
+      that.setState({
+        updateFavsFailMessage: 'Update failed: ' + error
+      })
+    }); 
   }
 
   handleUpdateArticles() {
@@ -159,9 +187,27 @@ class Settings extends Component {
               md={{ size: 6, offset: 1 }}>
             <h2>Favorites</h2>
             {this.renderFavorites()}
-            <Button onClick={() => this.handleUpdateFavorites()}>
+            <Button
+                id="settings_update_favs_btn"
+                onClick={() => this.handleUpdateFavorites()}>
               Update
             </Button>
+              <Tooltip
+                  id="settings_update_favs_error"
+                  fade={true}
+                  placement="bottom"
+                  isOpen={this.state.updateFavsFailMessage !== ''}
+                  target="settings_update_favs_btn">
+                {this.state.updateFavsFailMessage}
+              </Tooltip>
+              <Tooltip
+                  id="settings_update_favs_ok"
+                  fade={true}
+                  placement="bottom"
+                  isOpen={this.state.updateFavsOkMessage !== ''}
+                  target="settings_update_favs_btn">
+                {this.state.updateFavsOkMessage}
+              </Tooltip>
           </Col>
           <Col
               xs={{ size: 11, offset: 1}}

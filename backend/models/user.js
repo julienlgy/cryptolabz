@@ -32,7 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       through: 'Favorites',
       as: 'favorites',
       foreignKey: 'userId',
-      otherKey: 'cryptoId'
+      otherKey: 'cryptoId',
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
     });
   };
   return User;

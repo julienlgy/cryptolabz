@@ -230,7 +230,7 @@ module.exports = {
             var user = null
             if (user = tokenController.getUser(req)) {
                 CryptoDB.findAll({
-                    attributes: [ 'symbol', 'name', 'imgUrl' ]
+                    attributes: [ 'id', 'symbol', 'name', 'imgUrl' ]
                 }).then((crypto) => {
                     res.json({
                         error: false,

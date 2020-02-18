@@ -13,6 +13,8 @@ router.post("/login", UserController.login)
 
 router.put("/update", UserController.update)
 
+router.put("/favorites", UserController.updateFavorites)
+
 /**
  * GET / USERS
  * 

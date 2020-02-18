@@ -50,3 +50,14 @@ h1 {
   border-radius: 50%;
   cursor:pointer;
 }
+
+#settings_update_favs_error {
+  color: white;
+  background-color: #700d0d;
+}
+
+#settings_update_favs_ok {
+  color: white;
+  background-color: #0d700d;
+}
+

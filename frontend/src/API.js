@@ -8,6 +8,7 @@ const ROUTE_HOMEPAGE = "/cryptos/get/home"
 const ROUTE_CRYPTO_ID = "/cryptos?cmids="
 const ROUTE_CRYPTO_DELETE = "/cryptos?cmid="
 const ROUTE_USER_ALL = "/users/get/all"
+const ROUTE_USER_FAVORITES = "/users/favorites"
 const ROUTE_USER_LOGIN = "/users/login"
 const ROUTE_USER_REGISTER = "/users/register"
 const ROUTE_USER_UPDATE = "/users/update"
@@ -15,6 +16,7 @@ const ROUTE_USER_UPDATE = "/users/update"
 class API {
   url = BASE_URL;
 
+  url_favorites = BASE_URL + ROUTE_USER_FAVORITES;
   url_login = BASE_URL + ROUTE_USER_LOGIN;
   url_register = BASE_URL + ROUTE_USER_REGISTER;
   url_user_all = BASE_URL + ROUTE_USER_ALL;
