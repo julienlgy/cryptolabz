@@ -19,7 +19,7 @@ const cryptoscontroller = require('../controllers/cryptoscontroller')
  * -> highest price of the day
  * -> URL of the corresponding image of the cryptocurrency
  */
-router.get("/", cryptoscontroller.web.getCrytosByIds);
+router.get("/", cryptoscontroller.web.getCryptosByIds);
 
 /**
  * GET / CRYTPO
@@ -39,8 +39,10 @@ router.get("/:cmid", cryptoscontroller.web.getCryptoById);
  * -> hourly: 48 last hours, so 48 periods of one hour
  * -> minute: last 2 hours, so 60 periods of one minute
  */
-router.get("/:cmid/history/:period", cryptoscontroller.web.getCryptoHistoById)
+router.get("/history/:cmid/:period", cryptoscontroller.web.getCryptoHistoById)
 
+router.get("/get/home", cryptoscontroller.web.getHome)
+router.get("/get/all", cryptoscontroller.web.getAll)
 /**
  * POST / CRYPTO
  * 

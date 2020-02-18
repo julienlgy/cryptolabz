@@ -8,19 +8,25 @@ import { Col,
   FormGroup,
   Input,
   Label,
-  Row } from 'reactstrap'
+  Row,
+  Tooltip } from 'reactstrap'
+
+  import axios from "axios";
+  import API from "./../../API"
 
 class MyAccount extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init MyAccount with values from database")
     this.state = {
       oldPasswordOk: false,
       confirmPasswordOk: false,
-      email: '',
-      username: '',
-      firstName: '',
-      lastName: '',
+      updateFailMessage: '',
+      updateOkMessage: '',
+      user: this.props.user,
+      email: props.user.email,
+      username: props.user.username,
+      firstName: props.user.firstname,
+      lastName: props.user.lastname,
       newPassword: '',
       confirmPassword: ''
     }
@@ -32,7 +38,38 @@ class MyAccount extends Component {
         || (this.state.firstName === '')
         || (this.state.lastName === ''))
       return;
-    console.log("TODO update");
+    if ((this.state.email === this.state.user.email)
+        && (this.state.username === this.state.user.username)
+        && (this.state.firstName === this.state.user.firstName)
+        && (this.state.lastName === this.state.user.lastName))
+      return;
+
+      let body_update = {
+        email: this.state.email,
+        username: this.state.username,
+        firstname: this.state.firstName,
+        lastname: this.state.lastName
+      }
+      axios.put(API.url_user_update, body_update, API.getAuthHeaders())
+      .then(response => {
+        this.props.onEventUpdate({
+          email: this.state.email,
+          username: this.state.username,
+          firstname: this.state.firstName,
+          lastname: this.state.lastName,
+          password: this.state.user.password
+        })
+        this.setState({
+          updateFailMessage: '',
+          updateOkMessage: 'Profile updated'
+        })
+      })
+      .catch(error => {
+        this.setState({
+          updateFailMessage: 'An error occurred: ' + error,
+          updateOkMessage: ''
+        })
+      });
   }
   
   handleClickChangePassword() {
@@ -43,10 +80,10 @@ class MyAccount extends Component {
   }
 
   handleChangeOldPassword = (e) => {
-    console.log("TODO check password " + e.target.value); //TODO check with back
-    if (e.target.value === "ok") {
+    console.log("TODO check password " + e.target.value
+        + ". For now, expecting \"TODO\""); //TODO check with back
+    if (e.target.value === "TODO") {
       this.setState({
-        ...this.state,
         oldPasswordOk: true
       });
     }
@@ -172,9 +209,27 @@ class MyAccount extends Component {
                     onChange={this.handleChangeLastName.bind(this)}
                     name="lastname" id="myaccount_lastname" />
               </FormGroup>
-              <Button onClick={() => this.handleClickUpdateProfile()}>
+              <Button
+                  id="myaccount_update_btn"
+                  onClick={() => this.handleClickUpdateProfile()}>
                 Update
               </Button>
+              <Tooltip
+                  id="myaccount_tooltip_update_error"
+                  fade={true}
+                  placement="bottom"
+                  isOpen={this.state.updateFailMessage !== ''}
+                  target="myaccount_update_btn">
+                {this.state.updateFailMessage}
+              </Tooltip>
+              <Tooltip
+                  id="myaccount_tooltip_update_ok"
+                  fade={true}
+                  placement="bottom"
+                  isOpen={this.state.updateOkMessage !== ''}
+                  target="myaccount_update_btn">
+                {this.state.updateOkMessage}
+              </Tooltip>
             </Form>
           </Col>
           <Col

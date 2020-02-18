@@ -1,0 +1,35 @@
+.onecrypto {
+  color: #292929;
+}
+
+.onecrypto text {
+  fill: #292929;
+}
+
+.onecrypto .image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4ex;
+}
+
+.onecrypto .chart #center-axis-container path {
+  stroke: #42a5f5;
+}
+
+.onecrypto .chart #center-axis-container path.Component-root-4 {
+  stroke: rgb(224, 224, 224);
+}
+
+.onecrypto .chart {
+  padding: 10px 5px 10px 5px;
+  border-radius: 10px;
+}
+
+.onecrypto .trend-positive {
+  color: #129912;
+}
+
+.onecrypto .trend-negative {
+  color: #882222;
+}

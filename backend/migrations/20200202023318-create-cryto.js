@@ -46,6 +46,19 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      rank: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      marketCap: {
+        allowNull : true,
+        type: Sequelize.FLOAT
+      },
+      description: {
+        allowNull: true,
+        unique: false,
+        type: Sequelize.TEXT('LONGTEXT')
       }
     });
   },

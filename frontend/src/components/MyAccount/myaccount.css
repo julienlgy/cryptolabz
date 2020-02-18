@@ -19,3 +19,15 @@ h2 {
   width: 90%;
   max-width: 60ex;
 }
+
+#myaccount_tooltip_update_error {
+  color: white;
+  background-color: #700d0d;
+}
+
+#myaccount_tooltip_update_ok {
+  color: white;
+  background-color: #0d700d;
+}
+
+
