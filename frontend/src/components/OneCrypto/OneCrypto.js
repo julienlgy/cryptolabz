@@ -16,8 +16,8 @@ import { ArgumentScale ,
   EventTracker,
   HoverState } from '@devexpress/dx-react-chart';
   import { scaleTime } from 'd3-scale';
-  import axios from "axios";
-  import API from "./../../API"
+import axios from "axios";
+import API from "./../../API"
 
 class OneCrypto extends Component {
   constructor(props) {

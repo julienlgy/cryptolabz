@@ -115,7 +115,8 @@ class App extends React.Component {
             cryptoSymbol={this.state.cryptoSymbol} />}
         {this.state.displayBody === "Settings" && <Settings
             user={this.state.userAccount}/>}
-        {this.state.displayBody === "Favorites" && <Favorites />}
+        {this.state.displayBody === "Favorites" && <Favorites
+            user={this.state.userAccount}/>}
       </div>
     );
   }
