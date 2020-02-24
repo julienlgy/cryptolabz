@@ -301,7 +301,34 @@ module.exports = {
                     message: "either 'public' or 'all' is expected"
                 })
             }
-        }
+        },
+
+        async updatePublic(req, res) {
+    
+            //TODO: check admin token
+
+            const {
+                symbol,
+                isPublic,
+            } = req.body
+            
+            CryptoDB.findOne({
+                where: { "symbol": symbol }
+            }).then((crypto) => {
+                crypto.isPublic = isPublic
+                crypto.save()
+                res.json({
+                    error: false,
+                    data: crypto
+                })
+            }).catch((err) => {
+                console.error(err)
+                res.status(404).json({
+                    error:true,
+                    message: "Could not find symbol " + symbol
+                })
+            })
+        },
 
     }
 

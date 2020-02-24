@@ -8,6 +8,7 @@ const ROUTE_CRYPTO_HISTO_MINUTE = "/minute"
 const ROUTE_HOMEPAGE = "/cryptos/get/home"
 const ROUTE_CRYPTO_ID = "/cryptos?cmids="
 const ROUTE_CRYPTO_DELETE = "/cryptos?cmid="
+const ROUTE_CRYPTO_SET_PUBLIC = "/cryptos/update/public"
 const ROUTE_USER_ALL = "/users/get/all"
 const ROUTE_USER_FAVORITES = "/users/favorites"
 const ROUTE_USER_LOGIN = "/users/login"
@@ -27,6 +28,7 @@ class API {
   url_crypto_public = BASE_URL + ROUTE_CRYPTO_PUBLIC;
   url_crypto_delete = BASE_URL + ROUTE_CRYPTO_DELETE;
   url_crypto_home = BASE_URL + ROUTE_HOMEPAGE;
+  url_crypto_set_public = BASE_URL + ROUTE_CRYPTO_SET_PUBLIC;
   url_crypto = BASE_URL + ROUTE_CRYPTO_ID;
 
   url_crypto_histo = BASE_URL + ROUTE_CRYPTO_HISTO
