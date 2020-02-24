@@ -43,7 +43,7 @@ class CoinbaseAPI {
                       rank: element.rank,
                       market_cap: element.market_cap,
                       description: element.description
-                    })
+                    }, element.prices)
           });
         })
         .catch(error => {
