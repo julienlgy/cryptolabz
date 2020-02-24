@@ -1,7 +1,7 @@
-# cryptolabz
+# Cryptolabz
 T-WEB-700 Epitech Project
 
-# Cryptolabz BACKEND
+## Cryptolabz BACKEND
 
 ### Launch backend
 1.  run `docker-compose up`
