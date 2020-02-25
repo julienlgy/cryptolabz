@@ -10,6 +10,7 @@ const db = require('./models/index');
 const Logger = require('./middleware/logger').Logger;
 const coinbaseAPI = require('./services/scheduler/coinbase')
 const usercontroller = require('./controllers/usercontroller')
+const passport = require('passport')
 
 var cors = require('cors')
 
@@ -21,6 +22,8 @@ app.use(bodyParser.json())
 app.use(cors({credentials: true, origin: true}))
 app.use(bodyParser.urlencoded({ extended: false })),
 app.use(cookieParser());
+app.use(passport.initialize())
+
 
 const config = {
   port: 3000,

@@ -6,6 +6,7 @@
 const db = require('../models/index')
 const bcrypt = require('bcryptjs')
 const tokenController = require('./tokencontroller')
+
 module.exports = {
   internal: {
     createAdmin() {
@@ -210,5 +211,9 @@ module.exports = {
                 })
             })
         }
+    },
+    facebookOAuth: async (req, res, next) => {
+        const token = signToken(req.user)
+        res.status(200).json({ token })
     }
 }
