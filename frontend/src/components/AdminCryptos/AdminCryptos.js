@@ -34,10 +34,40 @@ class AdminCryptos extends React.Component {
         let toDisplay = response.data.data.slice(
             (this.state.numberPage - 1) * this.state.numberCryptosPerPage,
             this.state.numberPage * this.state.numberCryptosPerPage)
-        this.setState({ 
+            this.setState({ 
           cryptos: response.data.data,
           cryptosToDisplay: toDisplay
         });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+
+    handleSetPublic = (symbol, isPublic) => {
+      // Update the general crypto array
+      let newCryptos = this.state.cryptos.slice()
+      newCryptos.forEach((element) => {
+        if (element.symbol === symbol)
+          element.isPublic = isPublic;
+      })
+      // Update the current crypto array
+      let newToDisplay = this.state.cryptosToDisplay.slice()
+      newToDisplay.forEach((element) => {
+        if (element.symbol === symbol)
+          element.isPublic = isPublic;
+      })
+      this.setState({
+        cryptos: newCryptos,
+        cryptosToDisplay: newToDisplay
+      })
+      // Update database
+      let body_update = {
+        symbol: symbol,
+        isPublic: isPublic
+      }
+      axios.put(API.url_crypto_set_public, body_update, API.getAuthHeaders())
+      .then(() => {
       })
       .catch(error => {
         console.log(error);
@@ -96,6 +126,13 @@ class AdminCryptos extends React.Component {
                     xs={{ size: 6}}
                     md={{ size: 5}}>
                   {crypto.name}
+                </Col>
+                <Col
+                    xs={{ size: 1}}>
+                  <input type="checkbox"
+                      checked={crypto.isPublic}
+                      onChange={() => this.handleSetPublic(crypto.symbol, !crypto.isPublic)}
+                      />
                 </Col>
                 <Col
                     xs={{ size: 1}}>

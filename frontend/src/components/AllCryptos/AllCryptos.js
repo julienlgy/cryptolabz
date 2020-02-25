@@ -10,7 +10,6 @@ import API from "./../../API"
 class AllCryptos extends React.Component {
     constructor(props) {
       super(props);
-      console.log(this.props.isPublic)
       this.state = {
         cryptos: [],
         cryptosToDisplay: [],

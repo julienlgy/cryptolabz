@@ -33,3 +33,8 @@
 .onecrypto .trend-negative {
   color: #882222;
 }
+
+.onecrypto .description {
+  text-align: center;
+  text-justify: auto;
+}

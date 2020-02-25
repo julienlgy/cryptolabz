@@ -55,6 +55,14 @@ router.post("/", (req, res, next) => {
 })
 
 /**
+ * UPDATE / CRYPTO
+ * 
+ * User MUST be logged in as well as the ADMINISTRATOR. Sets a crypto to be accessible by
+ * anonymous users or not.
+ */
+router.put("/update/public", cryptoscontroller.web.updatePublic)
+
+/**
  * DELETE / CRYPTO ID
  * 
  * cmid: cryptocurrency Id. User MUST be logged in as well as the ADMINISTRATOR. Deletes a cryptocurrency (meaning that your platform does not know this currency anymore.)
