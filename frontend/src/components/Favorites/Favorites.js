@@ -16,83 +16,100 @@ import {
 import { ArgumentScale ,
   EventTracker,
   HoverState } from '@devexpress/dx-react-chart';
-  import { scaleTime } from 'd3-scale';
+import { scaleTime } from 'd3-scale';
+import axios from "axios";
+import API from "./../../API"
 
 const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
-const generateData = (n) => {
-  const ret = [];
-  let value = 20;
-  const datestamp = new Date(2020, 0, 0);
-  for (let i = 0; i < n; i += 1) {
-    datestamp.setDate(datestamp.getDate() + 1);
-    value += Math.round(Math.random() * 10 - 5);
-    ret.push({ datestamp: new Date(datestamp), value });
-  }
-  return ret;
-};
 
 class Favorite extends Component {
   constructor(props) {
     super(props)
-    console.log("TODO: init Favourites with values from database")
+    
+    let favorites = []
+    for (var index = 0;
+        index < this.props.user.favorites.length;
+        index++) {
+      favorites.push({
+        symbol: this.props.user.favorites[index].symbol,
+        name: this.props.user.favorites[index].name,
+        values: [],
+        trend48h: 0,
+        trendOverall: 0,
+      })
+    }
+
     this.state = {
-      favorites: [
-        {
-          name: 'bitcoin',
-          isNotCollapsed: true,
-          values: generateData(100),
-          trendOverall: 0,
-          trend48h: 0,
-        },
-        {
-          name: 'megacoin',
-          isNotCollapsed: true,
-          values: generateData(100),
-          trendOverall: 0,
-          trend48h: 0,
-        },
-        {
-          name: 'aucoin',
-          isNotCollapsed: true,
-          values: generateData(100),
-          trendOverall: 0,
-          trend48h: 0,
-        },
-      ],
+      favorites: [],
+      favorites_tmp: favorites,
       hoveredDate: null,
       hoveredValue: null,
     }
   }
 
   componentDidMount() {
-    this.calculateTrends()
+    this.state.favorites_tmp.forEach((crypto) => {
+      axios.all([
+        axios.get(API.url_crypto_histo
+          + crypto.symbol
+          + API.post_crypto_histo_minute,
+          {}, API.getAuthHeaders()),
+        axios.get(API.url_crypto_histo
+          + crypto.symbol
+          + API.post_crypto_histo_hourly,
+          {}, API.getAuthHeaders()),
+        axios.get(API.url_crypto_histo
+          + crypto.symbol
+          + API.post_crypto_histo_daily,
+          {}, API.getAuthHeaders())
+      ])
+      .then(axios.spread((minute, hourly, daily) => {
+
+        let values = minute.data.data
+        values.concat(hourly.data.data)
+        values.concat(daily.data.data)
+        for (let index = 0; index < values.length; index++) {
+          values[index].datestamp = new Date(values[index].date)
+        }
+        const trends = this.calculateTrends(values)
+
+        this.setState({
+          favorites: this.state.favorites.concat([{
+            symbol: crypto.symbol,
+            name:crypto.name,
+            isNotCollapsed: true,
+            values: values,
+            trend48h: trends.trend48h,
+            trendOverall: trends.trendOverall,
+          }])
+        })
+      }))
+      .catch(error => {
+        console.log(error);
+      })
+    })
   }
 
-  calculateTrends() {
-    let new_favorites = this.state.favorites.slice()
-    new_favorites.forEach((item) => {
-      let values = item.values
-      // Overall trend
-      item.trendOverall = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[0].value - 10000)) / 100.
-      item.trendOverall = values[values.length-1].value < values[0].value ?
-            item.trendOverall * -1 : item.trendOverall
-      // Last 48h
-      let index = values.length-1
-      let last_date = values[index].datestamp
-      while (this.dateDiffInDays(values[index].datestamp, last_date) < 2 && index >= 0) {
-        index--;
-      }
-      if (index >=0) {
-        item.trend48h = Math.floor(Math.abs(values[values.length-1].value * 10000 / values[index].value - 10000)) / 100.
-        item.trend48h = values[values.length-1].value < values[index].value ?
-            item.trend48h * -1 : item.trend48h
-          }
-    });
-    // Save result
-    this.setState({
-      favorites: new_favorites
-    })
+  calculateTrends(values) {
+    // Overall trend
+    let trendOverall = Math.floor(Math.abs(values[values.length-1].price * 10000 / values[0].price - 10000)) / 100.
+    trendOverall = values[values.length-1].price < values[0].price ?
+        trendOverall * -1 : trendOverall
+
+    // Last 48h
+    let index = values.length-1
+    let last_date = values[index].datestamp
+    while (this.dateDiffInDays(values[index].datestamp, last_date) < 2 && index > 0) {
+      index --;
+    }
+    let trend48h = Math.floor(Math.abs(values[values.length-1].price * 10000 / values[index].price - 10000)) / 100.
+    trend48h = values[values.length-1].price < values[index].price ?
+        trend48h * -1 : trend48h
+
+    return {
+      trend48h: trend48h,
+      trendOverall: trendOverall,
+    }
   }
 
   dateDiffInDays(a, b) {
@@ -123,7 +140,7 @@ class Favorite extends Component {
     this.setState({
       hoveredDate: this.state.favorites[target.series].values[target.point].datestamp,
       hoveredValue: Math.round(
-          this.state.favorites[target.series].values[target.point].value * 100) / 100.
+          this.state.favorites[target.series].values[target.point].price * 100) / 100.
     })
   }
 
@@ -193,7 +210,7 @@ class Favorite extends Component {
 
                       <LineSeries
                         name={index}
-                        valueField="value"
+                        valueField="price"
                         argumentField="datestamp"
                       />
 

@@ -6,10 +6,17 @@ import heart_icon from "./heart_icon.svg";
 import graph_icon from "./graph_icon.svg";
 
 class CryptosMenu extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isPublic: this.props.isPublic,
+    }
+  }
+
   render() {
     return (
       <div className="cryptosmenu">
-        <span>
+        {!this.props.isPublic && <span>
           <img
               onClick={this.props.onEventCryptoFavorites}
               src={heart_icon}
@@ -17,7 +24,7 @@ class CryptosMenu extends React.Component {
               longdesc="made by https://www.flaticon.com/authors/freepik"
               className="icon"
           />
-        </span>
+        </span>}
         <span>
           <img
               src={cryptos_icon}

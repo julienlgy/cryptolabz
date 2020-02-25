@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     username: {
       type: DataTypes.STRING,
@@ -27,8 +26,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {});
-  User.associate = function (models) {
-    // associations can be defined here
+  User.associate = function(models) {
+    User.belongsToMany(models.Crypto, {
+      through: 'Favorites',
+      as: 'favorites',
+      foreignKey: 'userId',
+      otherKey: 'cryptoId',
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
   };
   return User;
 };

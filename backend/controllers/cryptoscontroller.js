@@ -12,21 +12,38 @@ const Sequelize = require('../models/index').Sequelize;
 const tokenController= require('./tokencontroller')
 
 module.exports = {
-    update(JsonCurrency) {
+    update(JsonCurrency, prices) {
+
+        //TODO: check admin token
+        
         this.getBySymbol(JsonCurrency.symbol)
             .then((crypto) => {
                 if (crypto) {
                     if (crypto.currentPrice != JsonCurrency.currentPrice) {
                         var CryptoHisto = CryptoDBsHisto.build({
                             symbol: crypto.symbol,
-                            price: crypto.currentPrice
+                            price: crypto.currentPrice,
+                            date: new Date()
                         })
                         crypto.currentPrice = JsonCurrency.currentPrice
                         CryptoHisto.save()
                         crypto.save()
                     }
                 } else {
+                    var date = new Date()
+                    var i = 1;
                     this.create(JsonCurrency);
+                    prices.forEach((price) => {
+                        var rdate = new Date();
+                        rdate.setTime(date.getTime() - (60000 * i))
+                        var CryptoHisto = CryptoDBsHisto.build({
+                            symbol: JsonCurrency.symbol,
+                            price: price,
+                            date: rdate
+                        })
+                        CryptoHisto.save()
+                        i++;
+                    })
                 }
             })
             .catch(err => (
@@ -50,6 +67,9 @@ module.exports = {
     },
 
     getBySymbol(name) {
+
+        //TODO: check crypto.isPublic OR user token (connected)
+
         return new Promise((resolve, reject) => {
             CryptoDB.findOne({
                 where: { "symbol": name }
@@ -63,6 +83,9 @@ module.exports = {
 
     web : {
         async getCryptosByIds(req, res) {
+
+            //TODO: check crypto.isPublic OR user token (connected)
+
             var ids = req.query.cmids;
             console.log(ids);
             if (typeof ids != "undefined" && ids ){
@@ -89,6 +112,9 @@ module.exports = {
             } 
         },
         async getCryptoById(req, res) {
+
+            //TODO: check crypto.isPublic OR user token (connected)
+
             var cmid = req.params.cmid;
             if (typeof cmid !== "undefined") {
                 module.exports.getBySymbol(cmid)
@@ -112,6 +138,9 @@ module.exports = {
         },
         
         async getCryptoHistoById(req, res) {
+
+            //TODO: check crypto.isPublic OR user token (connected)
+
             var cmid = req.params.cmid
             var period = req.params.period
             var currentDate = new Date();
@@ -136,12 +165,12 @@ module.exports = {
                 CryptoDBsHisto.findAll({
                     attributes: [
                         [sequelize.fn('AVG', sequelize.col('price')), 'price'],
-                        [Sequelize.literal("DATE_FORMAT(`createdAt`, '"+truncation+"')"), 'date'],
-                        //'createdAt', [sequelize.fn('date_trunc', truncation, sequelize.col('createdAt'))]
+                        [Sequelize.literal("DATE_FORMAT(`date`, '"+truncation+"')"), 'date'],
+                        //'date', [sequelize.fn('date_trunc', truncation, sequelize.col('date'))]
                     ],
                     where: {
                         "symbol": cmid,
-                        "createdAt": {
+                        "date": {
                             [Op.between]: [startDate, currentDate]
                         }
                     },
@@ -174,7 +203,7 @@ module.exports = {
             // @TODO: Check if user is logged, and display his favorite cryptos instead
 
             CryptoDB.findAll({
-                attributes : [ 'symbol' ],
+                attributes : [ 'symbol', 'isPublic' ],
                 where: { rank: { [Op.lt]: 6} },
                 raw: true
             }).then((smbls) => {
@@ -187,11 +216,11 @@ module.exports = {
                     attributes: [
                         'symbol',
                         [sequelize.fn('AVG', sequelize.col('price')), 'price'],
-                        [Sequelize.literal("DATE_FORMAT(`createdAt`, '%Y-%m-%d %H:%i:00')"), 'date']
+                        [Sequelize.literal("DATE_FORMAT(`date`, '%Y-%m-%d %H:%i:00')"), 'date']
                     ],
                     where: {
                         "symbol": symbols,
-                        "createdAt": {
+                        "date": {
                             [Op.between]: [startDate, currentDate]
                         }
                     },
@@ -227,10 +256,12 @@ module.exports = {
         },
 
         async getAll(req, res) {
-            var user = null
-            if (user = tokenController.getUser(req)) {
+            if (req.params.isPublic === 'public') {
                 CryptoDB.findAll({
-                    attributes: [ 'symbol', 'name', 'imgUrl' ]
+                    attributes: [ 'id', 'symbol', 'name', 'imgUrl', 'isPublic' ],
+                    where: {
+                        isPublic: true
+                    }
                 }).then((crypto) => {
                     res.json({
                         error: false,
@@ -244,7 +275,60 @@ module.exports = {
                     })
                 })
             }
-        }
+            else if (req.params.isPublic === 'all') {
+                var user = null
+                if (user = tokenController.getUser(req)) {
+                    CryptoDB.findAll({
+                        attributes: [ 'id', 'symbol', 'name', 'imgUrl', 'isPublic' ]
+                    }).then((crypto) => {
+                        res.json({
+                            error: false,
+                            data: crypto
+                        })
+                    }).catch((err) => {
+                        console.error(err)
+                        res.status(500).json({
+                            error:true,
+                            message: "An error occured"
+                        })
+                    })
+                }
+            }
+            else {
+                console.error(err)
+                res.status(400).json({
+                    error:true,
+                    message: "either 'public' or 'all' is expected"
+                })
+            }
+        },
+
+        async updatePublic(req, res) {
+    
+            //TODO: check admin token
+
+            const {
+                symbol,
+                isPublic,
+            } = req.body
+            
+            CryptoDB.findOne({
+                where: { "symbol": symbol }
+            }).then((crypto) => {
+                crypto.isPublic = isPublic
+                crypto.save()
+                res.json({
+                    error: false,
+                    data: crypto
+                })
+            }).catch((err) => {
+                console.error(err)
+                res.status(404).json({
+                    error:true,
+                    message: "Could not find symbol " + symbol
+                })
+            })
+        },
 
     }
 

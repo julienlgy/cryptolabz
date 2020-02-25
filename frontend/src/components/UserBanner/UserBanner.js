@@ -76,6 +76,16 @@ class UserBanner extends React.Component {
   renderNotAuthentified() {
     return (
       <Nav>
+        <SearchBar
+          isPublic={true}
+          onEventVisualizeCrypto={this.props.onEventVisualizeCrypto}
+        />
+        <CryptosMenu
+          isPublic={true}
+          onEventCryptoAll={this.props.onEventCryptoAll}
+          onEventCryptoFavorites={this.props.onEventCryptoTrending}
+          onEventCryptoTrending={this.props.onEventCryptoTrending}
+        />
         <Button
           type="button"
           color="dark"

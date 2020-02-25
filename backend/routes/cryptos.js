@@ -42,7 +42,7 @@ router.get("/:cmid", cryptoscontroller.web.getCryptoById);
 router.get("/history/:cmid/:period", cryptoscontroller.web.getCryptoHistoById)
 
 router.get("/get/home", cryptoscontroller.web.getHome)
-router.get("/get/all", cryptoscontroller.web.getAll)
+router.get("/get/:isPublic", cryptoscontroller.web.getAll)
 /**
  * POST / CRYPTO
  * 
@@ -53,6 +53,14 @@ router.get("/get/all", cryptoscontroller.web.getAll)
 router.post("/", (req, res, next) => {
     
 })
+
+/**
+ * UPDATE / CRYPTO
+ * 
+ * User MUST be logged in as well as the ADMINISTRATOR. Sets a crypto to be accessible by
+ * anonymous users or not.
+ */
+router.put("/update/public", cryptoscontroller.web.updatePublic)
 
 /**
  * DELETE / CRYPTO ID

@@ -16,8 +16,8 @@ import { ArgumentScale ,
   EventTracker,
   HoverState } from '@devexpress/dx-react-chart';
   import { scaleTime } from 'd3-scale';
-  import axios from "axios";
-  import API from "./../../API"
+import axios from "axios";
+import API from "./../../API"
 
 class OneCrypto extends Component {
   constructor(props) {
@@ -60,6 +60,7 @@ class OneCrypto extends Component {
       that.setState({
         symbol: crypto.data.data[0].symbol,
         name: crypto.data.data[0].name,
+        description: crypto.data.data[0].description,
         imgUrl: crypto.data.data[0].imgUrl,
         values: values,
       })
@@ -138,6 +139,15 @@ class OneCrypto extends Component {
                 alt={"image_" + this.state.symbol}
                 src={this.state.imgUrl}
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col
+              xs={{ size: 10, offset: 1 }}
+              md={{ size: 8, offset: 2 }}>
+            <p className="description">
+              {this.state.description}
+            </p>
           </Col>
         </Row>
         <Row>

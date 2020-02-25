@@ -6,6 +6,7 @@
 const db = require('../models/index')
 const bcrypt = require('bcryptjs')
 const tokenController = require('./tokencontroller')
+
 module.exports = {
   internal: {
     createAdmin() {
@@ -68,7 +69,14 @@ module.exports = {
             if (req.body.hasOwnProperty('password') && req.body.hasOwnProperty('email')) {
                 const password = req.body.password
                 db.User.findOne({
-                    where: { email: req.body.email }
+                    where: { email: req.body.email},
+                    include: [
+                        {
+                            model: db.Crypto,
+                            as: 'favorites',
+                            attributes: ['id', 'symbol', 'name']
+                        }
+                    ]
                 }).then((data) => {
                     if (data) {
                         if (bcrypt.compareSync(password, data.password)) {
@@ -140,10 +148,57 @@ module.exports = {
         }
     },
 
+    async updateFavorites(req, res) {
+        const {
+            favorites
+        } = req.body
+        if (tokenController.check(req)) {
+            tokenController.getUser(req)
+                .then((user) => {
+                    console.log("newFavorites")
+                    let newFavorites = []
+                    favorites.forEach(function(element, index) {
+                        if (element.favorite) {
+                            console.log("N°" + index)
+                            console.log(element)
+                            newFavorites.push(element.id)
+                            console.log("ADDED")
+                        }
+                    })
+                    console.log("newFavorites")
+                    console.log(newFavorites)
+                    user.setFavorites(newFavorites)
+                    user.save()
+                    .then((rowUpdated) => {
+                        res.json({
+                            error: false,
+                            data: rowUpdated
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                        res.status(500).json({
+                            error: true,
+                            message: err.message
+                        })
+                    })
+                }).catch(err => res.status("403").json({error: true, message: err.message}))
+        } else {
+            res.status("403").json({error: true,message: "You must be logged in"})
+        }
+    },
+
     async getAll(req, res) {
         var user = null
         if (user = tokenController.getUser(req)) {
-            db.User.findAll().then((users) => {
+            db.User.findAll({
+                include: [
+                    {
+                        model: db.Crypto,
+                        as: 'favorites',
+                        attributes: ['id', 'symbol', 'name']
+                    }
+                ]
+            }).then((users) => {
                 res.json({
                     error: false,
                     data: users
@@ -156,5 +211,9 @@ module.exports = {
                 })
             })
         }
+    },
+    facebookOAuth: async (req, res, next) => {
+        const token = signToken(req.user)
+        res.status(200).json({ token })
     }
 }

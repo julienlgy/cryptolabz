@@ -1,6 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Crypto = sequelize.define('Crypto', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     name: DataTypes.STRING,
     symbol: DataTypes.STRING,
     slug: DataTypes.STRING,
@@ -11,10 +16,20 @@ module.exports = (sequelize, DataTypes) => {
     imgUrl: DataTypes.STRING,
     rank: DataTypes.INTEGER,
     marketCap: DataTypes.FLOAT,
-    description: DataTypes.TEXT
+    description: DataTypes.TEXT,
+    isPublic: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    }
   }, {});
   Crypto.associate = function(models) {
-    // associations can be defined here
+    Crypto.belongsToMany(models.User, {
+      through: 'Favorites',
+      as: 'users',
+      foreignKey: 'cryptoId',
+      otherKey: 'userId'
+    });
   };
   return Crypto;
 };
