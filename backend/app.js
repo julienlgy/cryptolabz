@@ -26,7 +26,7 @@ app.use(passport.initialize())
 
 
 const config = {
-  port: 3000,
+  port: 8000,
   host: '0.0.0.0'
 }
 
